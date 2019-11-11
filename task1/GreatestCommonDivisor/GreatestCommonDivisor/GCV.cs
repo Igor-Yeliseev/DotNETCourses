@@ -16,45 +16,37 @@ namespace GreatestCommonDivisor
         /// <returns></returns>
         public static int EuclideanGCV(int a, int b)
         {
-            int q;
-            int r1 = 0;
-            int r2 = 0;
-            int r3 = 0;
-            int answer = 0;
-            bool loopOn = true;
-
-            if (a > b)
+            if (a == b)
             {
-                r1 = a;
-                r2 = b;
-            }
-            else if (a < b)
-            {
-                r1 = b;
-                r2 = a;
+                return a;
             }
 
-            while (loopOn)
+            while (a != 0 && b!= 0)
             {
-                // r1 = r2 * q + r3;
-                if (r1 % r2 != 0)
+                if(a > b)
                 {
-                    r3 = r1 % r2;
-                    q = r1 / r2;
-                    r1 = r2;
-                    r2 = r3;
+                    a = a % b;
                 }
                 else
                 {
-                    answer = r2;
-                    loopOn = false;
+                    b = b % a;
                 }
             }
 
-            return answer;
+            return (a + b);
         }
 
-
+        /// <summary>
+        /// Алгоритм Евклида для нахождения НОД трех чисел
+        /// </summary>
+        /// <param name="a"> Первое число</param>
+        /// <param name="b"> Второе число</param>
+        /// <param name="c"> Третье число</param>
+        /// <returns></returns>
+        public static int EuclideanGCV(int a, int b, int c)
+        {
+            return 0;
+        }
 
     }
 }
