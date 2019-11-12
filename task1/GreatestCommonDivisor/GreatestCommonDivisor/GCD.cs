@@ -9,6 +9,41 @@ namespace GreatestCommonDivisor
 {
     public class GCD
     {
+
+        /// <summary>
+        /// Алгоритм Евклида для нахождения НОД двух чисел
+        /// </summary>
+        /// <param name="a"> Первое число</param>
+        /// <param name="b"> Второе число</param>
+        /// <returns></returns>
+        public static int EuclideanGCD(int a, int b)
+        {
+
+            if (a < 0 || b < 0)
+            {
+                throw new Exception("Отрицательные числа");
+            }
+
+            if (a == b)
+            {
+                return a;
+            }
+
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                {
+                    a = a % b;
+                }
+                else
+                {
+                    b = b % a;
+                }
+            }
+            
+            return (a + b);
+        }
+
         /// <summary>
         /// Алгоритм Евклида для нахождения НОД двух чисел
         /// </summary>
@@ -43,6 +78,8 @@ namespace GreatestCommonDivisor
             return (a + b);
         }
 
+
+
         /// <summary>
         /// Алгоритм для нахождения НОД трех чисел
         /// </summary>
@@ -52,8 +89,7 @@ namespace GreatestCommonDivisor
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c)
         {
-            double time;
-            return EuclideanGCD(EuclideanGCD(a, b, out time), c, out time);
+            return EuclideanGCD(EuclideanGCD(a, b), c);
         }
 
         /// <summary>
@@ -66,8 +102,7 @@ namespace GreatestCommonDivisor
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c, int d)
         {
-            double time;
-            return EuclideanGCD(EuclideanGCD(EuclideanGCD(a, b, out time), c, out time), d, out time);
+            return EuclideanGCD(EuclideanGCD(EuclideanGCD(a, b), c), d);
         }
 
         /// <summary>
@@ -81,8 +116,7 @@ namespace GreatestCommonDivisor
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c, int d, int e)
         {
-            double time;
-            return EuclideanGCD(EuclideanGCD(EuclideanGCD(EuclideanGCD(a, b, out time), c, out time), d, out time), e, out time);
+            return EuclideanGCD(EuclideanGCD(EuclideanGCD(EuclideanGCD(a, b), c), d), e);
         }
 
         /// <summary>
@@ -91,30 +125,19 @@ namespace GreatestCommonDivisor
         /// <param name="a"> Первое число</param>
         /// <param name="b"> Второе число</param>
         /// <returns></returns>
-        public static int SteinGCD(int a, int b, out double time)
+        private static int steinGCD(int a, int b)
         {
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            //stopWatch.Stop();
-            //time = stopWatch.Elapsed;
 
             if (a == b)
             {
-                stopWatch.Stop();
-                time = stopWatch.Elapsed.TotalMilliseconds;
                 return a;
             }
             if (a == 0)
             {
-                stopWatch.Stop();
-                time = stopWatch.Elapsed.TotalMilliseconds;
                 return b;
             }
             if (b == 0)
             {
-                stopWatch.Stop();
-                time = stopWatch.Elapsed.TotalMilliseconds;
                 return a;
             }
 
@@ -122,26 +145,43 @@ namespace GreatestCommonDivisor
             {
                 if ((b & 1) != 0)
                 {
-                    return SteinGCD(a >> 1, b, out time);
+                    return steinGCD(a >> 1, b);
                 }
                 else
                 {
                     
-                    return SteinGCD(a >> 1, b >> 1, out time) << 1;
+                    return steinGCD(a >> 1, b >> 1) << 1;
                 }
             }
             if ((~b & 1) != 0)
             {
-                return SteinGCD(a, b >> 1, out time);
+                return steinGCD(a, b >> 1);
             }
             if (a > b)
             {
-                return SteinGCD((a - b) >> 1, b, out time);
+                return steinGCD((a - b) >> 1, b);
             }
 
-            return SteinGCD((b - a) >> 1, a, out time);
+            return steinGCD((b - a) >> 1, a);
 
         }
+
+        /// <summary>
+        /// Алгоритм Стейна для расчета НОД
+        /// </summary>
+        /// <param name="a"> Первое число</param>
+        /// <param name="b"> Второе число</param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static int SteinGCD(int a, int b, out long time)
+        {
+            Stopwatch stopWatch = Stopwatch.StartNew();
+            int answer = steinGCD(a, b);
+            stopWatch.Stop();
+            time = stopWatch.ElapsedTicks;
+            return answer;
+        }
+
 
         /// <summary>
         /// Итеративный бинарный алгоритм Стейна нахождения НОД
