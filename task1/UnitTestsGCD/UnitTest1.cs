@@ -8,7 +8,7 @@ namespace UnitTestsGCD
     public class UnitTest1
     {
         [TestMethod]
-        public void Test1EuclideanGCV()
+        public void Test1_EuclideanGCD()
         {
             // arrange
             int expected = 21;
@@ -16,14 +16,15 @@ namespace UnitTestsGCD
             // act
             int a = 1071;
             int b = 462;
-            int answer = GCV.EuclideanGCV(a, b);
+            double time;
+            int answer = GCD.EuclideanGCD(a, b, out time);
 
             // assert
             Assert.AreEqual(expected, answer);
         }
 
         [TestMethod]
-        public void Test2EuclideanGCV()
+        public void Test2_EuclideanGCD()
         {
             // arrange
             int expected = 17;
@@ -31,14 +32,15 @@ namespace UnitTestsGCD
             // act
             int a = 527;
             int b = 748;
-            int answer = GCV.EuclideanGCV(a, b);
+            double time;
+            int answer = GCD.EuclideanGCD(a, b, out time);
 
             // assert
             Assert.AreEqual(expected, answer);
         }
 
         [TestMethod]
-        public void Test3EuclideanGCV()
+        public void Test3_EuclideanGCD()
         {
             // arrange
             int expected = 44;
@@ -46,7 +48,8 @@ namespace UnitTestsGCD
             // act
             int a = 44;
             int b = 44;
-            int answer = GCV.EuclideanGCV(a, b);
+            double time;
+            int answer = GCD.EuclideanGCD(a, b, out time);
 
             // assert
             Assert.AreEqual(expected, answer);
@@ -54,7 +57,7 @@ namespace UnitTestsGCD
 
 
         [TestMethod]
-        public void Test4EuclideanGCV()
+        public void Test4_EuclideanGCD()
         {
             // arrange
             int expected = 6;
@@ -63,7 +66,7 @@ namespace UnitTestsGCD
             int a = 78;
             int b = 294;
             int c = 570;
-            int answer = GCV.EuclideanGCV(a, b, c);
+            int answer = GCD.EuclideanGCD(a, b, c);
 
             // assert
             Assert.AreEqual(expected, answer);
@@ -71,7 +74,7 @@ namespace UnitTestsGCD
 
 
         [TestMethod]
-        public void Test5EuclideanGCV()
+        public void Test5_EuclideanGCD()
         {
             // arrange
             int expected = 6;
@@ -81,7 +84,7 @@ namespace UnitTestsGCD
             int b = 294;
             int c = 570;
             int d = 612;
-            int answer = GCV.EuclideanGCV(a, b, c, d);
+            int answer = GCD.EuclideanGCD(a, b, c, d);
 
             // assert
             Assert.AreEqual(expected, answer);
@@ -89,7 +92,7 @@ namespace UnitTestsGCD
 
 
         [TestMethod]
-        public void Test6EuclideanGCV()
+        public void Test6_EuclideanGCD()
         {
             // arrange
             int expected = 23;
@@ -100,7 +103,39 @@ namespace UnitTestsGCD
             int c = 230;
             int d = 529;
             int e = 437;
-            int answer = GCV.EuclideanGCV(a, b, c, d, e);
+            int answer = GCD.EuclideanGCD(a, b, c, d, e);
+
+            // assert
+            Assert.AreEqual(expected, answer);
+        }
+
+        [TestMethod]
+        public void Test1_SteinGCD()
+        {
+            // arrange
+            int expected = 23;
+
+            // act
+            int a = 161;
+            int b = 253;
+            double time = 0.0;
+            int answer = GCD.SteinGCD(a, b, out time);
+
+            // assert
+            Assert.AreEqual(expected, answer);
+        }
+
+        [TestMethod]
+        public void Test2_SteinGCD()
+        {
+            // arrange
+            int expected = 23;
+
+            // act
+            int a = 161;
+            int b = 253;
+            long time;
+            int answer = GCD.SteinIterativeGCD(a, b, out time);
 
             // assert
             Assert.AreEqual(expected, answer);
