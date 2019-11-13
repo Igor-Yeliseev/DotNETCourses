@@ -51,5 +51,53 @@ namespace UnitTestsVector
             Assert.AreEqual(expected, dotProduct);
         }
 
+        [TestMethod]
+        public void Test4_Vector()
+        {
+            // arrange
+            bool expected = true;
+
+            // act
+            Vector vector1 = new Vector(1.0f, 1.0f, 1.0f);
+            Vector vector2 = new Vector(1.0f, 3.0f, 1.0f);
+            bool answer = vector1 < vector2;
+
+            // assert
+            Assert.AreEqual(expected, answer);
+        }
+
+        [TestMethod]
+        public void Test5_Vector()
+        {
+            // arrange
+            bool expected = true;
+
+            // act
+            Vector vector1 = new Vector(2.0f, 2.0f, 1.0f);
+            Vector vector2 = new Vector(1.0f, 2.0f, 1.0f);
+            bool answer = vector1 > vector2;
+
+            // assert
+            Assert.AreEqual(expected, answer);
+        }
+
+        [TestMethod]
+        public void Test6_Vector()
+        {
+            // arrange
+            bool expected = true;
+
+            // act
+            Vector vector1 = new Vector(1.0f, 2.0f, 1.0f);
+            Vector vector2 = new Vector(1.0f, 2.0f, 1.0f);
+            Vector vector3 = new Vector(1.0f, 1.0f, 1.0f);
+            bool equal = vector1 == vector2;
+            bool notEqual = vector1 != vector3;
+
+            // assert
+            Assert.AreEqual(expected, equal);
+            Assert.AreEqual(expected, notEqual);
+        }
+
     }
 }

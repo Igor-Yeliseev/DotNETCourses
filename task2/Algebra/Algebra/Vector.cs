@@ -91,6 +91,35 @@ namespace Algebra
             return (v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z);
         }
 
+        /// <summary>
+        /// Вычисление длины вектора
+        /// </summary>
+        /// <returns></returns>
+        public float GetLength()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+        }
+
+        public static bool operator >(Vector v1, Vector v2)
+        {
+            return v1.GetLength() > v2.GetLength();
+        }
+
+        public static bool operator <(Vector v1, Vector v2)
+        {
+            return v1.GetLength() < v2.GetLength();
+        }
+
+        public static bool operator ==(Vector v1, Vector v2)
+        {
+            return (v1.X == v2.X && v1.Y == v2.Y && v1.Z == v2.Z);
+        }
+
+        public static bool operator !=(Vector v1, Vector v2)
+        {
+            return (v1.X != v2.X || v1.Y != v2.Y || v1.Z != v2.Z);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -102,6 +131,11 @@ namespace Algebra
                 return false;
             
             return (X == v.X && Y == v.Y && Z == v.Z);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)(31 * X + 7 * Y + Z);  
         }
 
     }
