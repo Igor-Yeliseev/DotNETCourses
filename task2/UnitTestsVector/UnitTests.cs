@@ -99,5 +99,17 @@ namespace UnitTestsVector
             Assert.AreEqual(expected, notEqual);
         }
 
+
+        [TestMethod]
+        public void Test1_Polynom()
+        {
+
+            Polynom p1 = new Polynom(1, -2, 3, 1);
+            Polynom p2 = new Polynom(1, -2, 3, 1);
+
+            Polynom p3 = p2 * 3.8;
+            p3 = 3.9 * p2;
+
+        }
     }
 }
