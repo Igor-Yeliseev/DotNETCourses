@@ -135,7 +135,7 @@ namespace Algebra
 
         public override int GetHashCode()
         {
-            return (int)(31 * X + 7 * Y + Z);  
+            return (int)(31 * X + 7 * Y + Z * 3);  
         }
 
     }

@@ -103,13 +103,29 @@ namespace UnitTestsVector
         [TestMethod]
         public void Test1_Polynom()
         {
+            // arrange
+            Polynom expected = new Polynom(2, 2, 2, 2);
 
-            Polynom p1 = new Polynom(1, -2, 3, 1);
-            Polynom p2 = new Polynom(1, -2, 3, 1);
+            // act
+            Polynom p1 = new Polynom(1, 1, 1, 1);
+            p1 *= 2;
 
-            Polynom p3 = p2 * 3.8;
-            p3 = 3.9 * p2;
+            // assert
+            Assert.AreEqual(expected, p1);
+        }
 
+        [TestMethod]
+        public void Test2_Polynom()
+        {
+            // arrange
+            Polynom expected = new Polynom(3, 3, 3, 3);
+
+            // act
+            Polynom p1 = new Polynom(1, 1, 1, 1);
+            p1 = 3 * p1;
+
+            // assert
+            Assert.AreEqual(expected, p1);
         }
     }
 }

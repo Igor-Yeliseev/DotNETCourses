@@ -24,12 +24,20 @@ namespace Algebra
         /// <param name="coeffs"> Коэффициенты при степенях начиная со старшей</param>
         public Polynom(params double[] coeffs)
         {
-            Degree = coeffs.Length;
-            Coeffs = new double[Degree];
-
-            for (int i = 0; i < coeffs.Length; i++)
+            if (coeffs.Length != 0)
             {
-                Coeffs[i] = coeffs[i];
+                Degree = coeffs.Length;
+                Coeffs = new double[Degree];
+
+                for (int i = 0; i < coeffs.Length; i++)
+                {
+                    Coeffs[i] = coeffs[i];
+                }
+            }
+            else
+            {
+                Degree = 0;
+                Coeffs = new double[1] {0};
             }
         }
 
@@ -115,6 +123,85 @@ namespace Algebra
             return additionPolyNumber(poly, number);
         }
 
+        /// <summary>
+        /// Сложение двух полиномов
+        /// </summary>
+        /// <param name="p1"> Первый полином</param>
+        /// <param name="p2"> Второй полином</param>
+        /// <returns></returns>
+        public static Polynom operator +(Polynom p1, Polynom p2)
+        {
+            Polynom p3 = new Polynom();
+            int longer, less;
+            bool isFirstLonger;
+            if (p1.Coeffs.Length >= p2.Coeffs.Length)
+            {
+                longer = p1.Coeffs.Length;
+                less = p2.Coeffs.Length;
+                isFirstLonger = true;
+            }
+            else
+            {
+                longer = p2.Coeffs.Length;
+                less = p1.Coeffs.Length;
+                isFirstLonger = false;
+            }
+            p3.Coeffs = new double[longer];
 
+            int j = 0;
+            for (int i = 0; i < longer; i++)
+            {
+                if (longer - i <= less)
+                {
+                    if (isFirstLonger)
+                    {
+                        p3.Coeffs[i] = p1.Coeffs[i] + p2.Coeffs[j];
+                    }
+                    else
+                    {
+                        p3.Coeffs[i] = p1.Coeffs[j] + p2.Coeffs[i];
+                    }
+                    j++;
+                }
+                else
+                {
+                    p3.Coeffs[i] = (isFirstLonger)? p1.Coeffs[i] : p2.Coeffs[i];
+                }
+            }
+
+            return p3;
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Polynom poly = obj as Polynom;
+            if (poly == null)
+                return false;
+
+            if (poly.Coeffs.Length != Coeffs.Length)
+                return false;
+
+            bool equal = true;
+
+            for (int i = 0; i < Coeffs.Length; i++)
+            {
+                if(Coeffs[i] != poly.Coeffs[i])
+                {
+                    equal = false;
+                    break;
+                }
+            }
+
+            return equal;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() * 21;
+        }
     }
 }
