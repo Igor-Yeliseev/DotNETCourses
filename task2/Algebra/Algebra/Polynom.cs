@@ -133,12 +133,13 @@ namespace Algebra
         {
             Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? (Polynom)p1.Clone() : (Polynom)p2.Clone();
             Polynom less = (p1.Coeffs.Length >= p2.Coeffs.Length) ? p2 : p1;
+
             for (int i = 0; i <= less.Degree; i++)
             {
                 resultPoly.Coeffs[resultPoly.Degree - i] += less.Coeffs[less.Degree - i];
             }
-            return resultPoly;
 
+            return resultPoly;
         }
 
         /// <summary>
@@ -151,22 +152,40 @@ namespace Algebra
         {
             Polynom p3 = new Polynom();
             List<double> coeffs = new List<double>();
-            Dictionary<double, int> resPoly = new Dictionary<double, int>();
-            
+            List<int> degrees = new List<int>();
+            List<double> resCoeffs = new List<double>();
 
             for (int i = 0; i < p1.Coeffs.Length; i++)
             {
                 for (int j = 0; j < p2.Coeffs.Length; j++)
                 {
-                    //coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]);
                     int deg1 = p1.Coeffs.Length - 1 - i;
                     int deg2 = p1.Coeffs.Length - 1 - j;
-                    int deg = deg1 * deg2;
-                    resPoly.Add(p1.Coeffs[i] * p2.Coeffs[j], deg);
+                    int deg = deg1 + deg2;
+                    coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]);
+                    degrees.Add(deg);
                 }
             }
 
-            return p3;
+            int Length = degrees.Count;
+            for (int i = 0; i < Length; i++)
+            {
+                int deg = degrees.ElementAt(i);
+                double coeff = coeffs.ElementAt(i);
+                for (int j = 0; j < degrees.Count; j++)
+                {
+                    if (deg == degrees.ElementAt(j) && j != i)
+                    {
+                        coeff += coeffs.ElementAt(j);
+                        degrees.RemoveAt(j);
+                        coeffs.RemoveAt(j);
+                    }
+                }
+                resCoeffs.Add(coeff);
+                Length = degrees.Count;
+            }
+
+            return new Polynom(resCoeffs.ToArray());
         }
 
         public override bool Equals(object obj)
@@ -182,7 +201,6 @@ namespace Algebra
                 return false;
 
             bool equal = true;
-
             for (int i = 0; i < Coeffs.Length; i++)
             {
                 if(Coeffs[i] != poly.Coeffs[i])
@@ -206,7 +224,7 @@ namespace Algebra
         /// <returns></returns>
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return MemberwiseClone();
         }
     }
 }

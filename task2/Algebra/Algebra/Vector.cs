@@ -11,17 +11,17 @@ namespace Algebra
         /// <summary>
         /// Координата X вектора
         /// </summary>
-        float X { get; set; }
+        public float X { get; set; }
 
         /// <summary>
         /// Координата Y вектора
         /// </summary>
-        float Y { get; set; }
+        public float Y { get; set; }
 
         /// <summary>
         /// Координата Z вектора
         /// </summary>
-        float Z { get; set; }
+        public float Z { get; set; }
 
         /// <summary>
         /// Конструктор вектора
@@ -92,6 +92,20 @@ namespace Algebra
         }
 
         /// <summary>
+        /// Векторное произведение векторов
+        /// </summary>
+        /// <param name="v1"> Первый вектор</param>
+        /// <param name="v2"> Второй вектор</param>
+        /// <returns></returns>
+        public static Vector operator ^(Vector v1, Vector v2)
+        {
+            float i = v1.Y * v2.Z - v2.Y * v1.Z;
+            float j = v2.X * v1.Z - v1.X * v2.Z;
+            float k = v1.X * v2.Y - v2.X * v1.Y;
+            return new Vector(i, j, k);
+        }
+
+        /// <summary>
         /// Вычисление длины вектора
         /// </summary>
         /// <returns></returns>
@@ -100,42 +114,44 @@ namespace Algebra
             return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
+        /// <summary>
+        /// Операция(больше) сравнения векторов
+        /// </summary>
+        /// <param name="v1"> Первый вектор</param>
+        /// <param name="v2"> Второй вектор</param>
+        /// <returns></returns>
         public static bool operator >(Vector v1, Vector v2)
         {
             return v1.GetLength() > v2.GetLength();
         }
 
+        /// <summary>
+        /// Операция(меньше) сравнения векторов
+        /// </summary>
+        /// <param name="v1"> Первый вектор</param>
+        /// <param name="v2"> Второй вектор</param>
+        /// <returns></returns>
         public static bool operator <(Vector v1, Vector v2)
         {
             return v1.GetLength() < v2.GetLength();
         }
-
-        public static bool operator ==(Vector v1, Vector v2)
-        {
-            return (v1.X == v2.X && v1.Y == v2.Y && v1.Z == v2.Z);
-        }
-
-        public static bool operator !=(Vector v1, Vector v2)
-        {
-            return (v1.X != v2.X || v1.Y != v2.Y || v1.Z != v2.Z);
-        }
-
+        
         public override bool Equals(object obj)
         {
             if (obj == null)
                 return false;
 
             Vector v = obj as Vector;
-
             if (v == null)
                 return false;
             
-            return (X == v.X && Y == v.Y && Z == v.Z);
+            return (X.Equals(v.X) && Y.Equals(v.Y) && Z.Equals(v.Z));
         }
 
         public override int GetHashCode()
         {
-            return (int)(31 * X + 7 * Y + Z * 3);  
+            return (31 * X.GetHashCode() + 7 * Y.GetHashCode() + 
+                    3 * Z.GetHashCode());  
         }
 
     }

@@ -14,8 +14,8 @@ namespace UnitTestsVector
             Vector expected = new Vector(0.0f, 2.0f, 4.0f);
 
             // act
-            Vector vector = new Vector(0.0f, 1.0f, 2.0f);
-            vector = 2.0f * vector;
+            Vector vector = new Vector(0.0f, 2.0f, 4.0f);
+            //vector = 2.0f * vector;
 
             // assert
             Assert.AreEqual(expected, vector);
@@ -85,18 +85,33 @@ namespace UnitTestsVector
         public void Test6_Vector()
         {
             // arrange
-            bool expected = true;
+            //bool expected = true;
 
             // act
             Vector vector1 = new Vector(1.0f, 2.0f, 1.0f);
             Vector vector2 = new Vector(1.0f, 2.0f, 1.0f);
             Vector vector3 = new Vector(1.0f, 1.0f, 1.0f);
-            bool equal = vector1 == vector2;
-            bool notEqual = vector1 != vector3;
+            bool equal = vector1.Equals(vector2);
+            bool notEqual = vector1.Equals(vector3);
 
             // assert
-            Assert.AreEqual(expected, equal);
-            Assert.AreEqual(expected, notEqual);
+            Assert.IsTrue(equal);
+            Assert.IsFalse(notEqual);
+        }
+
+        [TestMethod]
+        public void Test7_VectorCrossProduct()
+        {
+            // arrange
+            Vector expected = new Vector(1.0f, 1.0f, -3.0f);
+
+            // act
+            Vector vector1 = new Vector(1.0f, 2.0f, 1.0f);
+            Vector vector2 = new Vector(2.0f, 1.0f, 1.0f);
+            Vector vector3 = vector1 ^ vector2;
+
+            // assert
+            Assert.AreEqual(expected, vector3);
         }
 
 
