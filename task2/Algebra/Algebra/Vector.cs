@@ -136,6 +136,11 @@ namespace Algebra
             return v1.GetLength() < v2.GetLength();
         }
         
+        /// <summary>
+        /// Равенство объектов
+        /// </summary>
+        /// <param name="obj"> Объект</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -148,6 +153,10 @@ namespace Algebra
             return (X.Equals(v.X) && Y.Equals(v.Y) && Z.Equals(v.Z));
         }
 
+        /// <summary>
+        /// Получение хэш-кода
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (31 * X.GetHashCode() + 7 * Y.GetHashCode() + 

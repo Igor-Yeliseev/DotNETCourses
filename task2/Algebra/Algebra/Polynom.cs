@@ -16,7 +16,7 @@ namespace Algebra
         /// Массив коэффициентов полинома при каждой степени
         /// </summary>
         public double[] Coeffs { get; private set; }
-        
+
 
         /// <summary>
         /// Конструктор полинома
@@ -37,7 +37,7 @@ namespace Algebra
             else
             {
                 Degree = 0;
-                Coeffs = new double[1] {0};
+                Coeffs = new double[1] { 0 };
             }
         }
 
@@ -47,11 +47,13 @@ namespace Algebra
         /// <param name="p1"> Полином</param>
         /// <param name="number"> Число</param>
         /// <returns></returns>
-        private static Polynom multiplyPolynom(Polynom poly, double number)
+        private static Polynom multPolyNumb(Polynom poly, double number)
         {
+            Polynom resPoly;
+
             if (number == 0)
             {
-                poly = new Polynom(0);
+                resPoly = new Polynom(0);
             }
             else
             {
@@ -60,9 +62,9 @@ namespace Algebra
                 {
                     coeffs[i] = poly.Coeffs[i] * number;
                 }
-                poly = new Polynom(coeffs);
+                resPoly = new Polynom(coeffs);
             }
-            return poly;
+            return resPoly;
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator *(Polynom poly, double number)
         {
-            return multiplyPolynom(poly, number);
+            return multPolyNumb(poly, number);
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator *(double number, Polynom poly)
         {
-            return multiplyPolynom(poly, number);
+            return multPolyNumb(poly, number);
         }
 
         /// <summary>
@@ -143,6 +145,31 @@ namespace Algebra
         }
 
         /// <summary>
+        /// Разность полиномов
+        /// </summary>
+        /// <param name="p1"> Первый полином</param>
+        /// <param name="p2"> Второй полином</param>
+        /// <returns></returns>
+        public static Polynom operator -(Polynom p1, Polynom p2)
+        {
+            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? (Polynom)p1.Clone() : (-1 * (Polynom)p2.Clone());
+            Polynom less = (p1.Coeffs.Length >= p2.Coeffs.Length) ? p2 : (-1 * p1);
+
+            int zeros = 0;
+            for (int i = 0; i <= less.Degree; i++)
+            {
+                resultPoly.Coeffs[resultPoly.Degree - i] -= less.Coeffs[less.Degree - i];
+                if (resultPoly.Coeffs[resultPoly.Degree - i] == 0)
+                    zeros++;
+            }
+
+            if (resultPoly.Coeffs.Length == zeros) // Проверка на сокращение всех членов
+                return new Polynom(0);
+
+            return resultPoly;
+        }
+
+        /// <summary>
         /// Умножение двух полиномов
         /// </summary>
         /// <param name="p1"> Первый полином</param>
@@ -150,10 +177,9 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator *(Polynom p1, Polynom p2)
         {
-            Polynom p3 = new Polynom();
-            List<double> coeffs = new List<double>();
-            List<int> degrees = new List<int>();
-            List<double> resCoeffs = new List<double>();
+            List<double> coeffs = new List<double>(); // Коллекция коэф. при каждой степени
+            List<int> degrees = new List<int>(); // Коллекция степеней X
+            List<double> resCoeffs = new List<double>(); // Результирующие коэффициенты
 
             for (int i = 0; i < p1.Coeffs.Length; i++)
             {
@@ -161,20 +187,20 @@ namespace Algebra
                 {
                     int deg1 = p1.Coeffs.Length - 1 - i;
                     int deg2 = p1.Coeffs.Length - 1 - j;
-                    int deg = deg1 + deg2;
-                    coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]);
+                    int deg = deg1 + deg2; // Умножение степеней (степени складываются)
+                    coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]); // Умножение коэффициентов
                     degrees.Add(deg);
                 }
             }
 
             int Length = degrees.Count;
-            for (int i = 0; i < Length; i++)
+            for (int i = 0; i < Length; i++) // Цикл приведения подобных
             {
-                int deg = degrees.ElementAt(i);
+                int degree = degrees.ElementAt(i);
                 double coeff = coeffs.ElementAt(i);
                 for (int j = 0; j < degrees.Count; j++)
                 {
-                    if (deg == degrees.ElementAt(j) && j != i)
+                    if (degree == degrees.ElementAt(j) && j != i)
                     {
                         coeff += coeffs.ElementAt(j);
                         degrees.RemoveAt(j);
@@ -188,6 +214,11 @@ namespace Algebra
             return new Polynom(resCoeffs.ToArray());
         }
 
+        /// <summary>
+        /// Равенство объектов
+        /// </summary>
+        /// <param name="obj"> Объект</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -213,9 +244,13 @@ namespace Algebra
             return equal;
         }
 
+        /// <summary>
+        /// Получение хэш-кода
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode() * 21;
+            return Degree.GetHashCode() + 21 + Coeffs.Length.GetHashCode() * 3;
         }
 
         /// <summary>

@@ -144,7 +144,7 @@ namespace UnitTestsVector
         }
 
         [TestMethod]
-        public void Test3_SumPolynomPolynom()
+        public void Test3_SumPolynoms()
         {
             // arrange
             Polynom expected = new Polynom(3, 4, -1, 2);
@@ -176,19 +176,64 @@ namespace UnitTestsVector
             Assert.AreEqual(expected, p3);
         }
 
+
         [TestMethod]
-        public void Test4_MultiPolynomPolynom()
+        public void Test4_SubtractPolynoms()
         {
+            Polynom p1, p2, p3;
+
+            // Первый больше второго
+            Polynom expected = new Polynom(1, 0, 2, 1);
+
+            p1 = new Polynom(1, 2, 3, 4);
+            p2 = new Polynom(2, 1, 3);
+            p3 = p1 - p2;
+
+            Assert.AreEqual(expected, p3);
+
+            // Второй больше первого
+            expected = new Polynom(-1, 0, -2, -1);
+
+            p1 = new Polynom(2, 1, 3);
+            p2 = new Polynom(1, 2, 3, 4);
+            p3 = p1 - p2;
+
+            Assert.AreEqual(expected, p3);
+
+            // Оба одинаковой старшей степени с одинаковыми коэффициентами
+            expected = new Polynom(0);
+
+            p1 = new Polynom(1, 2, 3, 4);
+            p2 = new Polynom(1, 2, 3, 4);
+            p3 = p1 - p2;
+
+            Assert.AreEqual(expected, p3);
+        }
+
+        [TestMethod]
+        public void Test5_MultiplPolynoms()
+        {
+            Polynom p1, p2, p3;
+
             // arrange
-            Polynom expected = new Polynom(3, 4, -1, 2);
+            Polynom expected = new Polynom(2, 5, 11, 17, 13, 12);
 
             // act
-            Polynom p1 = new Polynom(1, 1, 1, 1);
-            Polynom p2 = new Polynom(2, 3, -2, 1);
-            Polynom p3 = p1 + p2;
+            p1 = new Polynom(1, 2, 3, 4);
+            p2 = new Polynom(2, 1, 3);
+            p3 = p1 * p2;
 
             // assert
             Assert.AreEqual(expected, p3);
+
+            expected = new Polynom(3, 10, 19, 32, 32, 25, 24, 11, 4);
+
+            p1 = new Polynom(1, 2, 3, 4);
+            p2 = new Polynom(3, 4, 2, 4, 2, 1);
+            p3 = p1 * p2;
+
+            Assert.AreEqual(expected, p3);
+
         }
     }
 
