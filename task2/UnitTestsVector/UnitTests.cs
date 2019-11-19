@@ -101,7 +101,7 @@ namespace UnitTestsVector
 
 
         [TestMethod]
-        public void Test1_Polynom()
+        public void Test1_PolynomNumber()
         {
             // arrange
             Polynom expected = new Polynom(2, 2, 2, 2);
@@ -115,7 +115,7 @@ namespace UnitTestsVector
         }
 
         [TestMethod]
-        public void Test2_Polynom()
+        public void Test2_NumberPolynom()
         {
             // arrange
             Polynom expected = new Polynom(3, 3, 3, 3);
@@ -127,5 +127,54 @@ namespace UnitTestsVector
             // assert
             Assert.AreEqual(expected, p1);
         }
+
+        [TestMethod]
+        public void Test3_SumPolynomPolynom()
+        {
+            // arrange
+            Polynom expected = new Polynom(3, 4, -1, 2);
+
+            // act
+            Polynom p1 = new Polynom(1, 1, 1, 1);
+            Polynom p2 = new Polynom(2, 3, -2, 1);
+            Polynom p3 = p1 + p2;
+
+            // assert
+            Assert.AreEqual(expected, p3);
+
+            // Первый больше второго
+            expected = new Polynom(1, 4, 3, 2);
+
+            p1 = new Polynom(1, 1, 1, 1);
+            p2 = new Polynom(3, 2, 1);
+            p3 = p1 + p2;
+
+            Assert.AreEqual(expected, p3);
+
+            // Второй больше первого
+            expected = new Polynom(1, 2, 2, 2);
+
+            p1 = new Polynom(1, 1, 1);
+            p2 = new Polynom(1, 1, 1, 1);
+            p3 = p1 + p2;
+
+            Assert.AreEqual(expected, p3);
+        }
+
+        [TestMethod]
+        public void Test4_MultiPolynomPolynom()
+        {
+            // arrange
+            Polynom expected = new Polynom(3, 4, -1, 2);
+
+            // act
+            Polynom p1 = new Polynom(1, 1, 1, 1);
+            Polynom p2 = new Polynom(2, 3, -2, 1);
+            Polynom p3 = p1 + p2;
+
+            // assert
+            Assert.AreEqual(expected, p3);
+        }
     }
+
 }

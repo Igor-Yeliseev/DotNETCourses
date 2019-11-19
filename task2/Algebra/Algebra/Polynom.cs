@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algebra
 {
-    public class Polynom
+    public class Polynom : ICloneable
     {
         /// <summary>
         /// Старшая степень полинома
@@ -26,8 +26,8 @@ namespace Algebra
         {
             if (coeffs.Length != 0)
             {
-                Degree = coeffs.Length;
-                Coeffs = new double[Degree];
+                Degree = coeffs.Length - 1;
+                Coeffs = new double[coeffs.Length];
 
                 for (int i = 0; i < coeffs.Length; i++)
                 {
@@ -55,8 +55,8 @@ namespace Algebra
             }
             else
             {
-                double[] coeffs = new double[poly.Degree];
-                for (int i = 0; i < poly.Degree; i++)
+                double[] coeffs = new double[poly.Degree + 1];
+                for (int i = 0; i < poly.Degree + 1; i++)
                 {
                     coeffs[i] = poly.Coeffs[i] * number;
                 }
@@ -131,47 +131,43 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator +(Polynom p1, Polynom p2)
         {
-            Polynom p3 = new Polynom();
-            int longer, less;
-            bool isFirstLonger;
-            if (p1.Coeffs.Length >= p2.Coeffs.Length)
+            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? (Polynom)p1.Clone() : (Polynom)p2.Clone();
+            Polynom less = (p1.Coeffs.Length >= p2.Coeffs.Length) ? p2 : p1;
+            for (int i = 0; i <= less.Degree; i++)
             {
-                longer = p1.Coeffs.Length;
-                less = p2.Coeffs.Length;
-                isFirstLonger = true;
+                resultPoly.Coeffs[resultPoly.Degree - i] += less.Coeffs[less.Degree - i];
             }
-            else
-            {
-                longer = p2.Coeffs.Length;
-                less = p1.Coeffs.Length;
-                isFirstLonger = false;
-            }
-            p3.Coeffs = new double[longer];
+            return resultPoly;
 
-            int j = 0;
-            for (int i = 0; i < longer; i++)
+        }
+
+        /// <summary>
+        /// Умножение двух полиномов
+        /// </summary>
+        /// <param name="p1"> Первый полином</param>
+        /// <param name="p2"> Второй</param>
+        /// <returns></returns>
+        public static Polynom operator *(Polynom p1, Polynom p2)
+        {
+            Polynom p3 = new Polynom();
+            List<double> coeffs = new List<double>();
+            Dictionary<double, int> resPoly = new Dictionary<double, int>();
+            
+
+            for (int i = 0; i < p1.Coeffs.Length; i++)
             {
-                if (longer - i <= less)
+                for (int j = 0; j < p2.Coeffs.Length; j++)
                 {
-                    if (isFirstLonger)
-                    {
-                        p3.Coeffs[i] = p1.Coeffs[i] + p2.Coeffs[j];
-                    }
-                    else
-                    {
-                        p3.Coeffs[i] = p1.Coeffs[j] + p2.Coeffs[i];
-                    }
-                    j++;
-                }
-                else
-                {
-                    p3.Coeffs[i] = (isFirstLonger)? p1.Coeffs[i] : p2.Coeffs[i];
+                    //coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]);
+                    int deg1 = p1.Coeffs.Length - 1 - i;
+                    int deg2 = p1.Coeffs.Length - 1 - j;
+                    int deg = deg1 * deg2;
+                    resPoly.Add(p1.Coeffs[i] * p2.Coeffs[j], deg);
                 }
             }
 
             return p3;
         }
-
 
         public override bool Equals(object obj)
         {
@@ -202,6 +198,15 @@ namespace Algebra
         public override int GetHashCode()
         {
             return base.GetHashCode() * 21;
+        }
+
+        /// <summary>
+        /// Клонирование полигона
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
