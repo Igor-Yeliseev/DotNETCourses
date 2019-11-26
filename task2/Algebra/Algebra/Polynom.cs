@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Algebra
 {
-    public class Polynom : ICloneable
+    /// <summary>
+    /// Класс многочлена(полинома) одной переменной
+    /// </summary>
+    public class Polynom
     {
         /// <summary>
         /// Старшая степень полинома
         /// </summary>
-        public int Degree { get; set; }
+        public int Degree { get; private set; }
+
         /// <summary>
         /// Массив коэффициентов полинома при каждой степени
         /// </summary>
         public double[] Coeffs { get; private set; }
-
 
         /// <summary>
         /// Конструктор полинома
@@ -95,12 +96,13 @@ namespace Algebra
         /// <param name="poly"> Полином</param>
         /// <param name="number"> Число</param>
         /// <returns></returns>
-        private static Polynom additionPolyNumber(Polynom poly, double number)
+        private static Polynom additionPolyNumb(Polynom poly, double number)
         {
+            Polynom resPoly = new Polynom(poly.Coeffs);
             int last = poly.Coeffs.Length - 1; // Просто для наглядности
-            poly.Coeffs[last] = poly.Coeffs.Last() + number;
+            resPoly.Coeffs[last] = poly.Coeffs.Last() + number;
 
-            return new Polynom(poly.Coeffs);
+            return resPoly;
         }
 
         /// <summary>
@@ -111,7 +113,7 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator +(Polynom poly, double number)
         {
-            return additionPolyNumber(poly, number);
+            return additionPolyNumb(poly, number);
         }
 
         /// <summary>
@@ -122,7 +124,7 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator +(double number, Polynom poly)
         {
-            return additionPolyNumber(poly, number);
+            return additionPolyNumb(poly, number);
         }
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace Algebra
         /// <returns></returns>
         public static Polynom operator +(Polynom p1, Polynom p2)
         {
-            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? (Polynom)p1.Clone() : (Polynom)p2.Clone();
+            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? new Polynom(p1.Coeffs) : new Polynom(p2.Coeffs);
             Polynom less = (p1.Coeffs.Length >= p2.Coeffs.Length) ? p2 : p1;
 
             for (int i = 0; i <= less.Degree; i++)
@@ -145,14 +147,14 @@ namespace Algebra
         }
 
         /// <summary>
-        /// Разность полиномов
+        /// Разность двух полиномов
         /// </summary>
         /// <param name="p1"> Первый полином</param>
         /// <param name="p2"> Второй полином</param>
         /// <returns></returns>
         public static Polynom operator -(Polynom p1, Polynom p2)
         {
-            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? (Polynom)p1.Clone() : (-1 * (Polynom)p2.Clone());
+            Polynom resultPoly = (p1.Coeffs.Length >= p2.Coeffs.Length) ? new Polynom(p1.Coeffs) : (-1 * new Polynom(p2.Coeffs));
             Polynom less = (p1.Coeffs.Length >= p2.Coeffs.Length) ? p2 : (-1 * p1);
 
             int zeros = 0;
@@ -187,7 +189,7 @@ namespace Algebra
                 {
                     int deg1 = p1.Coeffs.Length - 1 - i;
                     int deg2 = p1.Coeffs.Length - 1 - j;
-                    int deg = deg1 + deg2; // Умножение степеней (степени складываются)
+                    int deg = deg1 + deg2; // Умножение степеней
                     coeffs.Add(p1.Coeffs[i] * p2.Coeffs[j]); // Умножение коэффициентов
                     degrees.Add(deg);
                 }
@@ -253,13 +255,5 @@ namespace Algebra
             return Degree.GetHashCode() + 21 + Coeffs.Length.GetHashCode() * 3;
         }
 
-        /// <summary>
-        /// Клонирование полигона
-        /// </summary>
-        /// <returns></returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
     }
 }

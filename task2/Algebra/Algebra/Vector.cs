@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Algebra
 {
+    /// <summary>
+    /// Класс трехмерного вектора
+    /// </summary>
     public class Vector
     {
         /// <summary>
@@ -122,6 +121,7 @@ namespace Algebra
         /// <returns></returns>
         public static bool operator >(Vector v1, Vector v2)
         {
+            // Сравниваю вектора по их длине
             return v1.GetLength() > v2.GetLength();
         }
 

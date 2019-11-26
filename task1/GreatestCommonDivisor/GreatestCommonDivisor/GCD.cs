@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace GreatestCommonDivisor
 {
     /// <summary>
-    /// Greatest Common Divisor
+    /// Greatest Common Divisor (GCD)
     /// </summary>
     public class GCD
     {
         /// <summary>
-        /// Алгоритм Евклида для нахождения НОД двух чисел
+        /// GCD euclidean algorithm for two numbers
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b)
         {
@@ -46,11 +46,11 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Алгоритм Евклида для нахождения НОД двух чисел
+        /// GCD euclidean algorithm for two numbers
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
-        /// <param name="time"> Время выполнения метода (в тактах таймера)</param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="time"> Method execution time (in timer ticks)</param>
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, out long time)
         {
@@ -65,11 +65,11 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Алгоритм для нахождения НОД трех чисел
+        /// GCD euclidean algorithm for three numbers
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
-        /// <param name="c"> Третье число</param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="c"> Third number</param>
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c)
         {
@@ -77,12 +77,12 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Алгоритм для нахождения НОД четырех чисел
+        /// GCD euclidean algorithm for four numbers
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
-        /// <param name="c"> Третье число</param>
-        /// <param name="d"> Четвертое число</param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="c"> Third number</param>
+        /// <param name="d"> Fourth number</param>
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c, int d)
         {
@@ -90,13 +90,13 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Алгоритм для нахождения НОД пяти чисел
+        ///  GCD euclidean algorithm for five numbers
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
-        /// <param name="c"> Третье число</param>
-        /// <param name="d"> Четвертое число</param>
-        /// <param name="e"></param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="c"> Third number</param>
+        /// <param name="d"> Fourth number</param>
+        /// <param name="e"> Fifth number</param>
         /// <returns></returns>
         public static int EuclideanGCD(int a, int b, int c, int d, int e)
         {
@@ -104,11 +104,11 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Итеративный бинарный алгоритм Стейна нахождения НОД
+        /// Stein's GCD iterative binary algorithm
         /// </summary>
-        /// <param name="a"> Первое число</param>
-        /// <param name="b"> Второе число</param>
-        /// <param name="time"> Время выполнения метода (в тактах таймера)</param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="time"> Method execution time (in timer ticks)</param>
         /// <returns></returns>
         public static int SteinGCD(int a, int b, out long time)
         {
@@ -165,13 +165,13 @@ namespace GreatestCommonDivisor
         }
 
         /// <summary>
-        /// Подготовка данных для гистограммы
+        /// Data preparation for a histogram
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="a"> First number</param>
+        /// <param name="b"> Second number</param>
+        /// <param name="c"> Third number</param>
+        /// <param name="d"> Fourth number</param>
+        /// <param name="e"> Fifth number</param>
         /// <returns></returns>
         public static Dictionary<string, long> SetDataBarGraph(int a, int b, int c, int d, int e)
         {
@@ -207,7 +207,7 @@ namespace GreatestCommonDivisor
             SteinGCD(a, b, out excTime);
             methodsData.Add("SteinGCD_2numbers", excTime);
 
-            // Возвращаем словать (название_метода, время_выполнения)
+            // Returns dictionary (method_name, exc_выполнения)
             return methodsData;
         }
 

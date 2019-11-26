@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algebra", "Algebra\Algebra.csproj", "{BE7F7B0D-1454-4846-96EA-5DB58DD6E233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsVector", "..\UnitTestsVector\UnitTestsVector.csproj", "{FF1D553B-6B73-4F9B-A528-8289948C2939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsAlgebra", "..\UnitTestsVector\UnitTestsAlgebra.csproj", "{FF1D553B-6B73-4F9B-A528-8289948C2939}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

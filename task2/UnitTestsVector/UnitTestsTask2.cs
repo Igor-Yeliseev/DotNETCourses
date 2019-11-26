@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Algebra;
 
-namespace UnitTestsVector
+namespace UnitTests
 {
     [TestClass]
-    public class UnitTests
+    public class UnitTestsTask2
     {
         [TestMethod]
         public void Test1_Vector()
@@ -114,7 +114,6 @@ namespace UnitTestsVector
             Assert.AreEqual(expected, vector3);
         }
 
-
         [TestMethod]
         public void Test1_PolynomNumber()
         {
@@ -175,7 +174,6 @@ namespace UnitTestsVector
 
             Assert.AreEqual(expected, p3);
         }
-
 
         [TestMethod]
         public void Test4_SubtractPolynoms()

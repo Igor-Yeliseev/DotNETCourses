@@ -7,6 +7,9 @@ namespace UnitTestsGCD
     [TestClass]
     public class UnitTests
     {
+        /// <summary>
+        /// GCD test for 2 numbers
+        /// </summary>
         [TestMethod]
         public void Test1_EuclideanGCD()
         {
