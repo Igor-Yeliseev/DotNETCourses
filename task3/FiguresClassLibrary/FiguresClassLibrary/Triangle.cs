@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FiguresClassLibrary
+{
+    /// <summary>
+    /// Class representing an triangle
+    /// </summary>
+    class Triangle : Figure
+    {
+        /// <summary>
+        /// The side A of a triangle
+        /// </summary>
+        public float SideA { get; private set; }
+
+        /// <summary>
+        /// The side B of a triangle
+        /// </summary>
+        public float SideB { get; private set; }
+
+        /// <summary>
+        /// The side C of a triangle
+        /// </summary>
+        public float SideC { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the Triangle class
+        /// </summary>
+        /// <param name="a"> First side of a triangle</param>
+        /// <param name="b"> Second side of a triangle</param>
+        /// <param name="c"> Third side of a triangle</param>
+        public Triangle(float a, float b, float c)
+        {
+            if ((a + b) > c && (a + c) > b && (b + c) > a)
+            {
+                SideA = a;
+                SideB = b;
+                SideC = c;
+            }
+            else
+            {
+                throw new Exception("Such a triangle cannot exist.");
+            }
+        }
+
+        /// <summary>
+        /// Get the area of a triangle
+        /// </summary>
+        /// <returns></returns>
+        public override float GetArea()
+        {
+            float semiPer = GetPerimeter() / 2;
+            return (float)Math.Sqrt(semiPer * (semiPer - SideA) * (semiPer - SideB) * (semiPer - SideC));
+        }
+
+        /// <summary>
+        /// Get the perimeter of a triangle
+        /// </summary>
+        /// <returns></returns>
+        public override float GetPerimeter()
+        {
+            return (SideA + SideB + SideC);
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Triangle tr = obj as Triangle;
+            if (tr == null)
+                return false;
+
+            return (SideA.Equals(tr.SideA) && SideB.Equals(tr.SideB) && SideC.Equals(tr.SideC));
+            
+        }
+
+        public override int GetHashCode()
+        {
+            return (3 * SideA.GetHashCode() + 4 * SideB.GetHashCode() +
+                    2 * SideC.GetHashCode());
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+    }
+}
