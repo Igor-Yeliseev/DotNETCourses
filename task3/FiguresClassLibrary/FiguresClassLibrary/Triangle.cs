@@ -65,7 +65,11 @@ namespace FiguresClassLibrary
             return (SideA + SideB + SideC);
         }
 
-
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -78,13 +82,21 @@ namespace FiguresClassLibrary
             return (SideA.Equals(tr.SideA) && SideB.Equals(tr.SideB) && SideC.Equals(tr.SideC));
             
         }
-
+        
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (3 * SideA.GetHashCode() + 4 * SideB.GetHashCode() +
                     2 * SideC.GetHashCode());
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return base.ToString();

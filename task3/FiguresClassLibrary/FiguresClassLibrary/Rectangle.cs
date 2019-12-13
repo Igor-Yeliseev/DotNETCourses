@@ -57,7 +57,11 @@ namespace FiguresClassLibrary
             return (2 * Width + 2 * Height);
         }
 
-
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -70,9 +74,22 @@ namespace FiguresClassLibrary
             return (Width.Equals(r.Width) && Height.Equals(r.Height));
         }
 
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (2 * Width.GetHashCode() + 5 * Height.GetHashCode());
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

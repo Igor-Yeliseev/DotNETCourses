@@ -19,7 +19,7 @@ namespace FiguresClassLibrary
         /// <summary>
         /// Initializes a new instance of the Circle class
         /// </summary>
-        /// <param name="radius"></param>
+        /// <param name="radius"> Circle radius</param>
         public Circle(float radius)
         {
             if(radius > 0)
@@ -50,6 +50,11 @@ namespace FiguresClassLibrary
             return (float)(Math.PI * 2 * Radius);
         }
 
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -62,9 +67,23 @@ namespace FiguresClassLibrary
             return (Radius.Equals(cirlce.Radius));
         }
 
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (4 * Radius.GetHashCode());
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "This is a circle with Radius = " + Radius + ", Perimeter = " + GetPerimeter() + 
+                   ", Area = " + GetArea();
         }
     }
 }
