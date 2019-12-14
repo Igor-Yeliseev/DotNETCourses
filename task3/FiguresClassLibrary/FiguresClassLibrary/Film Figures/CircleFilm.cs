@@ -18,5 +18,14 @@ namespace FiguresClassLibrary
         public CircleFilm(float radius) : base(radius)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the CircleFilm class, cutting from another figure
+        /// </summary>
+        /// <param name="figure"> Figure for cutting</param>
+        /// <param name="radius"> Circle radius</param>
+        public CircleFilm(Figure figure, float radius) :base (figure, radius)
+        {
+        }
     }
 }

@@ -23,17 +23,20 @@ namespace TaskClassLibrary
         /// <summary>
         /// Figures amount
         /// </summary>
-        public int Count => figures.Count;
+        public int GetCount()
+        {
+            return figures.Count;
+        }
 
         /// <summary>
         /// Add a new figure to the box
         /// </summary>
-        /// <param name="item"> Figure </param>
-        public void Add(Figure item)
+        /// <param name="figure"> Figure </param>
+        public void Add(Figure figure)
         {
-            if (item == null)
+            if (figure == null)
             {
-                throw new ArgumentNullException(nameof(item));
+                throw new ArgumentNullException(nameof(figure));
             }
 
             if(figures.Count == 20)
@@ -41,27 +44,50 @@ namespace TaskClassLibrary
                 throw new Exception("The box if full.");
             }
 
-            if (!figures.Contains(item))
+            if (!figures.Contains(figure))
             {
-                figures.Add(item);
+                figures.Add(figure);
             }
         }
 
         /// <summary>
-        /// Extract figure by indext
+        /// Find a figure by sample
         /// </summary>
-        /// <param name="index"> Indext of the figure</param>
+        /// <param name="sample"> Figure's sample</param>
         /// <returns></returns>
-        public Figure Extract(int index)
+        public Figure FindFigure(Figure sample)
         {
-            if(figures.ElementAt(index) == null)
+            if (sample == null)
+            {
+                throw new ArgumentNullException(nameof(sample));
+            }
+
+            foreach (Figure figure in figures)
+            {
+                if(figure.Equals(sample))
+                {
+                    return figure;
+                }
+            }
+            
+            return null;
+        }
+
+        /// <summary>
+        /// Extract figure by number
+        /// </summary>
+        /// <param name="number"> Number of the figure</param>
+        /// <returns></returns>
+        public Figure Extract(int number)
+        {
+            if(figures[number] == null)
             {
                 throw new ArgumentNullException();
             }
 
-            Figure figure = figures.ElementAt(index);
+            Figure figure = figures[number - 1];
 
-            figures.RemoveAt(index);
+            figures.RemoveAt(number - 1);
 
             return figure;
         }
@@ -70,37 +96,35 @@ namespace TaskClassLibrary
         /// Replace figure by number
         /// </summary>
         /// <param name="figure"> A new figure</param>
-        /// <param name="index"> Indext of the old figure</param>
-        public void Replace(Figure figure, int index)
+        /// <param name="number"> Number of the old figure</param>
+        public void Replace(Figure figure, int number)
         {
-            if (figure == null || figures.ElementAt(index) == null)
+            if (figure == null || figures[number - 1] == null)
+            {
+                throw new ArgumentNullException(nameof(figure));
+            }
+
+            figures[number] = figure;
+
+            //figures.RemoveAt(number);
+            //figures.Insert(number, figure);
+        }
+
+        /// <summary>
+        /// Show figure by number
+        /// </summary>
+        /// <param name="number"> number of the figure</param>
+        /// <returns></returns>
+        public Figure ShowFigure(int number)
+        {
+            if (figures[number - 1] == null)
             {
                 throw new ArgumentNullException();
             }
 
-            figures.RemoveAt(index);
-            figures.Insert(index, figure);
+            return figures[number - 1];
         }
-
-        /// <summary>
-        /// Remove figure from box
-        /// </summary>
-        /// <param name="figure"> Figure for remove </param>
-        public void Remove(Figure figure)
-        {
-            if (figure == null)
-            {
-                throw new ArgumentNullException(nameof(figure));
-            }
-            
-            if (!figures.Contains(figure))
-            {
-                throw new KeyNotFoundException($"Figure {figure} not found in box");
-            }
-            
-            figures.Remove(figure);
-        }
-
+        
         /// <summary>
         /// Get a total area of all figures
         /// </summary>
@@ -172,18 +196,16 @@ namespace TaskClassLibrary
         }
 
         /// <summary>
-        /// Вернуть перечислитель, выполняющий перебор всех элементов множества.
+        /// Return an enumerator that enumerates all elements of the set.
         /// </summary>
-        /// <returns> Перечислитель, который можно использовать для итерации по коллекции. </returns>
+        /// <returns></returns>
         public IEnumerator<Figure> GetEnumerator()
         {
-            // Используем перечислитель списка элементов данных множества.
             return figures.GetEnumerator();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
         {
-            // Используем перечислитель списка элементов данных множества.
             return figures.GetEnumerator();
         }
     }

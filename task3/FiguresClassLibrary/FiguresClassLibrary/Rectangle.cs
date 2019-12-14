@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class  representing a rectangle
     /// </summary>
-    public class Rectangle : Figure
+    public abstract class Rectangle : Figure
     {
         /// <summary>
         /// Get the width of a rectangle
@@ -47,12 +47,18 @@ namespace FiguresClassLibrary
         /// <param name="height"> Height of a rectangle</param>
         public Rectangle(Figure figure, float width, float height)
         {
+            if (figure == null)
+            {
+                throw new ArgumentNullException(nameof(figure));
+            }
             if (width <= 0 || height <= 0)
             {
                 throw new Exception("Invalid figure's parameters");
             }
+
             Width = width;
             Height = height;
+
             if (figure.GetArea() < GetArea())
             {
                 throw new Exception("The figure cannot be created.");

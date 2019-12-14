@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing an triangle
     /// </summary>
-    public class Triangle : Figure
+    public abstract class Triangle : Figure
     {
         /// <summary>
         /// The side A of a triangle
@@ -55,6 +55,10 @@ namespace FiguresClassLibrary
         /// <param name="c"> Third side of a triangle</param>
         public Triangle(Figure figure, float a, float b, float c)
         {
+            if (figure == null)
+            {
+                throw new ArgumentNullException(nameof(figure));
+            }
             if (a <= 0 || b <= 0 || c <= 0)
             {
                 throw new Exception("Invalid figure's parameters");

@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a circle
     /// </summary>
-    public class Circle : Figure
+    public abstract class Circle : Figure
     {
         /// <summary>
         /// Circle radius
@@ -39,12 +39,18 @@ namespace FiguresClassLibrary
         /// <param name="radius"> Circle radius</param>
         public Circle(Figure figure, float radius)
         {
-            if(radius <= 0)
+            if (figure == null)
+            {
+                throw new ArgumentNullException(nameof(figure));
+            }
+            if (radius <= 0)
             {
                 throw new Exception("Invalid figure's parameters");
             }
+
             Radius = radius;
-            if(figure.GetArea() < GetArea())
+
+            if (figure.GetArea() < GetArea())
             {
                 throw new Exception("The figure cannot be created.");
             }

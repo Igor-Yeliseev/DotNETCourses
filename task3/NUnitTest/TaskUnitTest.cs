@@ -72,7 +72,7 @@ namespace NUnitTest
         [TestCase(1.5f, 1.0f, 1.8028f, 0.75f, 4.3028f)]
         public void CheckTriangle(float sideA, float sideB, float sideC, float expectArea, float expectPerim)
         {
-            Triangle triangle = new Triangle(sideA, sideB, sideC);
+            Triangle triangle = new TrianglePaper(sideA, sideB, sideC);
             
             Assert.AreEqual(expectArea, triangle.GetArea(), 0.00001f);
 
@@ -92,7 +92,7 @@ namespace NUnitTest
         [TestCase(2.5f, 3.3f, 8.25f, 11.6f)]
         public void CheckRectangle(float width, float height, float expectArea, float expectPerim)
         {
-            Rectangle rectangle = new Rectangle(width, height);
+            Rectangle rectangle = new RectangleFilm(width, height);
 
             Assert.AreEqual(expectArea, rectangle.GetArea(), 0.0001f);
         
@@ -111,7 +111,7 @@ namespace NUnitTest
         [TestCase(1.35f, 5.72555f, 8.48230f)]
         public void CheckCircle(float radius, float expectArea, float expectPerim)
         {
-            Circle rectangle = new Circle(radius);
+            Circle rectangle = new CirclePaper(radius);
 
             Assert.AreEqual(expectArea, rectangle.GetArea(), 0.0001f);
 
@@ -119,7 +119,7 @@ namespace NUnitTest
         }
 
         /// <summary>
-        /// Check the box collection for exception
+        /// Check some features of the box collection
         /// </summary>
         [Test]
         public void CheckBox()
@@ -128,8 +128,7 @@ namespace NUnitTest
             {
                 Box box = new Box();
                 box.Add(new RectanglePaper(20, 20));
-                box.Add(new RectanglePaper(20, 20));
-                //box.Add(null);
+                box.Add(null);
             };
             Assert.Catch(func);
 
@@ -144,7 +143,12 @@ namespace NUnitTest
                 }
             };
             Assert.Catch(func2);
-            
+
+            // Cannot add the same figure twice
+            Box boxFigures = new Box();
+            boxFigures.Add(new CircleFilm(3));
+            boxFigures.Add(new CircleFilm(3));
+            Assert.AreEqual(1, boxFigures.GetCount());
         }
 
         /// <summary>
@@ -153,7 +157,7 @@ namespace NUnitTest
         [Test]
         public void CheckBoxFunctions()
         {
-            Assert.AreEqual(5, figuresBox.Count);
+            Assert.AreEqual(5, figuresBox.GetCount());
 
             Assert.AreEqual(totalArea, figuresBox.GetTotalArea());
 
@@ -164,6 +168,11 @@ namespace NUnitTest
 
             // Get all film figures
             Assert.AreEqual(3, figuresBox.FildFilmFigures().Count);
+
+            figuresBox.Add(new TrianglePaper(3, 3, 3));
+
+            // Replace a figure
+            figuresBox.Replace(new CircleFilm(2.7f), 5);
         }
 
         /// <summary>
@@ -210,7 +219,7 @@ namespace NUnitTest
             Assert.AreEqual(expTriangleP, triangle);
 
         }
-        
+
         /// <summary>
         /// Check figures for painting
         /// </summary>
@@ -228,14 +237,32 @@ namespace NUnitTest
         }
 
         /// <summary>
-        /// Check cutting out figures from other figures
+        /// Check cutting out paper figures from other figures
         /// </summary>
-        [Test]
-        public void CheckCuttingFigures()
+        [TestCase(1)]
+        [TestCase(3)]
+        public void CheckCuttingPaperFigures(int index)
         {
-            Figure figure = figuresBox.Extract(2);
+            Figure figure = figuresBox.ShowFigure(index);
+            
+            Figure miniTriangle = new TrianglePaper(figure, 1, 1, 1);
 
-            Assert.IsTrue(figure is TrianglePaper);
+            Assert.IsNotNull(miniTriangle);
+        }
+
+        /// <summary>
+        /// Check cutting out film figures from other figures
+        /// </summary>
+        [TestCase(2)]
+        [TestCase(4)]
+        [TestCase(5)]
+        public void CheckCuttingFilmFigures(int index)
+        {
+            Figure figure = figuresBox.ShowFigure(index);
+            
+            Figure miniRect = new RectangleFilm(figure, 1, 1);
+
+            Assert.IsNotNull(miniRect);
         }
     }
 }

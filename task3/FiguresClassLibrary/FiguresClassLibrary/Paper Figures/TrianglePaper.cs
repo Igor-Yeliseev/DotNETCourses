@@ -36,11 +36,11 @@ namespace FiguresClassLibrary
         /// <param name="c"> Third side of a triangle</param>
         public TrianglePaper(Figure figure, float a, float b, float c) : base(figure, a, b, c)
         {
-            if (!(figure is TrianglePaper))
+            if (!(figure is IPaperFigure))
             {
                 throw new Exception("The figure cannot be created.");
             }
-            color = ((TrianglePaper)figure).Сolor;
+            color = ((IPaperFigure)figure).Сolor;
         }
 
         /// <summary>

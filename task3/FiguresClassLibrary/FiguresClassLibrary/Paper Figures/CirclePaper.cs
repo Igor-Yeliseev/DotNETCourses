@@ -32,11 +32,11 @@ namespace FiguresClassLibrary
         /// <param name="radius"> Circle radius</param>
         public CirclePaper(Figure figure, float radius) :base (figure, radius)
         {
-            if(!(figure is CirclePaper))
+            if(!(figure is IPaperFigure))
             {
                 throw new Exception("The figure cannot be created.");
             }
-            color = ((CirclePaper)figure).Сolor;
+            color = ((IPaperFigure)figure).Сolor;
         }
 
         /// <summary>

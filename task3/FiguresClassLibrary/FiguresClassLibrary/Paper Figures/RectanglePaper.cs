@@ -34,11 +34,11 @@ namespace FiguresClassLibrary
         /// <param name="height"> Height of a rectangle</param>
         public RectanglePaper(Figure figure, float width, float height) : base(figure, width, height)
         {
-            if (!(figure is RectanglePaper))
+            if (!(figure is IPaperFigure))
             {
                 throw new Exception("The figure cannot be created.");
             }
-            color = ((RectanglePaper)figure).Сolor;
+            color = ((IPaperFigure)figure).Сolor;
         }
 
         /// <summary>
