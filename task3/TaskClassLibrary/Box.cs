@@ -26,7 +26,7 @@ namespace TaskClassLibrary
         public int Count => figures.Count;
 
         /// <summary>
-        /// Add a new figure
+        /// Add a new figure to the box
         /// </summary>
         /// <param name="item"> Figure </param>
         public void Add(Figure item)
@@ -61,38 +61,51 @@ namespace TaskClassLibrary
 
             Figure figure = figures.ElementAt(index);
 
-            Remove(figure);
+            figures.RemoveAt(index);
 
             return figure;
         }
-        
+
         /// <summary>
-        /// Удалить элемент из множества.
+        /// Replace figure by number
         /// </summary>
-        /// <param name="item"> Удаляемый элемент данных. </param>
-        public void Remove(Figure item)
+        /// <param name="figure"> A new figure</param>
+        /// <param name="index"> Indext of the old figure</param>
+        public void Replace(Figure figure, int index)
         {
-            // Проверяем входные данные на пустоту.
-            if (item == null)
+            if (figure == null || figures.ElementAt(index) == null)
             {
-                throw new ArgumentNullException(nameof(item));
+                throw new ArgumentNullException();
             }
 
-            // Если коллекция не содержит данный элемент, то мы не можем его удалить.
-            if (!figures.Contains(item))
-            {
-                throw new KeyNotFoundException($"Элемент {item} не найден в множестве.");
-            }
-
-            // Удаляем элемент из коллекции.
-            figures.Remove(item);
+            figures.RemoveAt(index);
+            figures.Insert(index, figure);
         }
 
         /// <summary>
-        /// Total area of all figures
+        /// Remove figure from box
+        /// </summary>
+        /// <param name="figure"> Figure for remove </param>
+        public void Remove(Figure figure)
+        {
+            if (figure == null)
+            {
+                throw new ArgumentNullException(nameof(figure));
+            }
+            
+            if (!figures.Contains(figure))
+            {
+                throw new KeyNotFoundException($"Figure {figure} not found in box");
+            }
+            
+            figures.Remove(figure);
+        }
+
+        /// <summary>
+        /// Get a total area of all figures
         /// </summary>
         /// <returns></returns>
-        public float TotalArea()
+        public float GetTotalArea()
         {
             float area = 0.0f;
 
@@ -105,10 +118,10 @@ namespace TaskClassLibrary
         }
 
         /// <summary>
-        /// Total perimeter of all figures
+        /// Get a total perimeter of all figures
         /// </summary>
         /// <returns></returns>
-        public float TotalPerimeter()
+        public float GetTotalPerimeter()
         {
             float perimeter = 0.0f;
 

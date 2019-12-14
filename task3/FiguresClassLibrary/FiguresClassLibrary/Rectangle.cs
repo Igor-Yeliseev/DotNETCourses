@@ -40,6 +40,26 @@ namespace FiguresClassLibrary
         }
 
         /// <summary>
+        /// Initializes a new instance of the Rectangle class, cutting from another figure
+        /// </summary>
+        /// <param name="figure"> Figure for cutting</param>
+        /// <param name="width"> Width of a rectangle</param>
+        /// <param name="height"> Height of a rectangle</param>
+        public Rectangle(Figure figure, float width, float height)
+        {
+            if (width <= 0 || height <= 0)
+            {
+                throw new Exception("Invalid figure's parameters");
+            }
+            Width = width;
+            Height = height;
+            if (figure.GetArea() < GetArea())
+            {
+                throw new Exception("The figure cannot be created.");
+            }
+        }
+
+        /// <summary>
         /// Get the area of a rectangle
         /// </summary>
         /// <returns></returns>

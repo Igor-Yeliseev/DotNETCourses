@@ -47,6 +47,35 @@ namespace FiguresClassLibrary
         }
 
         /// <summary>
+        /// Initializes a new instance of the Triangle class, cutting from another figure
+        /// </summary>
+        /// <param name="figure"> Figure for cutting</param>
+        /// <param name="a"> First side of a triangle</param>
+        /// <param name="b"> Second side of a triangle</param>
+        /// <param name="c"> Third side of a triangle</param>
+        public Triangle(Figure figure, float a, float b, float c)
+        {
+            if (a <= 0 || b <= 0 || c <= 0)
+            {
+                throw new Exception("Invalid figure's parameters");
+            }
+            if ((a + b) > c && (a + c) > b && (b + c) > a)
+            {
+                SideA = a;
+                SideB = b;
+                SideC = c;
+            }
+            else
+            {
+                throw new Exception("Such a triangle cannot exist.");
+            }
+            if (figure.GetArea() < GetArea())
+            {
+                throw new Exception("The figure cannot be created.");
+            }
+        }
+
+        /// <summary>
         /// Get the area of a triangle
         /// </summary>
         /// <returns></returns>

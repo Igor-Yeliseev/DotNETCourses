@@ -32,7 +32,23 @@ namespace FiguresClassLibrary
             }
         }
 
-
+        /// <summary>
+        /// Initializes a new instance of the Circle class, cutting from another figure
+        /// </summary>
+        /// <param name="figure"> Figure for cutting</param>
+        /// <param name="radius"> Circle radius</param>
+        public Circle(Figure figure, float radius)
+        {
+            if(radius <= 0)
+            {
+                throw new Exception("Invalid figure's parameters");
+            }
+            Radius = radius;
+            if(figure.GetArea() < GetArea())
+            {
+                throw new Exception("The figure cannot be created.");
+            }
+        }
 
         /// <summary>
         /// Get the area of a circle

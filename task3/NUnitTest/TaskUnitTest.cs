@@ -9,6 +9,57 @@ namespace NUnitTest
     class TaskUnitTest
     {
         /// <summary>
+        /// Figures Factory
+        /// </summary>
+        FiguresFactory figuresFactory = null;
+        /// <summary>
+        /// Box of figures
+        /// </summary>
+        Box figuresBox = null;
+        float totalArea = 0.0f;
+        float totalPerimeter = 0.0f;
+
+        /// <summary>
+        /// Initializes figuresFactory and figuresBox
+        /// </summary>
+        public TaskUnitTest()
+        {
+            figuresFactory = new FiguresFactory();
+            figuresBox = new Box();
+            Figure figure = null;
+            
+            // Create a paper circle
+            figure = figuresFactory.GetFigure(Material.Paper, 5);
+            figuresBox.Add(figure);
+            totalArea += figure.GetArea();
+            totalPerimeter += figure.GetPerimeter();
+
+            // Create a film rectangle
+            figure = figuresFactory.GetFigure(Material.Film, 2, 5);
+            figuresBox.Add(figure);
+            totalArea += figure.GetArea();
+            totalPerimeter += figure.GetPerimeter();
+
+            // Create a paper triangle
+            figure = figuresFactory.GetFigure(Material.Paper, 2, 2, 2);
+            figuresBox.Add(figure);
+            totalArea += figure.GetArea();
+            totalPerimeter += figure.GetPerimeter();
+
+            // Create a film triangle
+            figure = figuresFactory.GetFigure(Material.Film, 3, 4, 5);
+            figuresBox.Add(figure);
+            totalArea += figure.GetArea();
+            totalPerimeter += figure.GetPerimeter();
+
+            // Create a film circle
+            figure = figuresFactory.GetFigure(Material.Film, 4);
+            figuresBox.Add(figure);
+            totalArea += figure.GetArea();
+            totalPerimeter += figure.GetPerimeter();
+        }
+
+        /// <summary>
         /// Check a triangle figure
         /// </summary>
         /// <param name="sideA"></param>
@@ -68,33 +119,51 @@ namespace NUnitTest
         }
 
         /// <summary>
-        /// Check the box collection
+        /// Check the box collection for exception
         /// </summary>
         [Test]
         public void CheckBox()
         {
             TestDelegate func = delegate
             {
-                Box figuresBox = new Box();
-                figuresBox.Add(new RectanglePaper(20, 20));
-                figuresBox.Add(null);
+                Box box = new Box();
+                box.Add(new RectanglePaper(20, 20));
+                box.Add(new RectanglePaper(20, 20));
+                //box.Add(null);
             };
-
             Assert.Catch(func);
 
             TestDelegate func2 = delegate
             {
-                Box figuresBox = new Box();
+                Box box = new Box();
 
+                // More than 20 figures
                 for (int i = 0; i < 21; i++)
                 {
-                    figuresBox.Add(new RectanglePaper(i + 1, i + 1));
+                    box.Add(new RectanglePaper(i + 1, i + 1));
                 }
             };
-
             Assert.Catch(func2);
+            
+        }
 
+        /// <summary>
+        /// Check functions of the box collection 
+        /// </summary>
+        [Test]
+        public void CheckBoxFunctions()
+        {
+            Assert.AreEqual(5, figuresBox.Count);
 
+            Assert.AreEqual(totalArea, figuresBox.GetTotalArea());
+
+            Assert.AreEqual(totalPerimeter, figuresBox.GetTotalPerimeter());
+
+            // Get all circles
+            Assert.AreEqual(2, figuresBox.FindCircles().Count);
+
+            // Get all film figures
+            Assert.AreEqual(3, figuresBox.FildFilmFigures().Count);
         }
 
         /// <summary>
@@ -141,8 +210,7 @@ namespace NUnitTest
             Assert.AreEqual(expTriangleP, triangle);
 
         }
-
-
+        
         /// <summary>
         /// Check figures for painting
         /// </summary>
@@ -157,6 +225,17 @@ namespace NUnitTest
 
             Assert.AreEqual(triangle.Сolor, Сoloring.Black);
 
+        }
+
+        /// <summary>
+        /// Check cutting out figures from other figures
+        /// </summary>
+        [Test]
+        public void CheckCuttingFigures()
+        {
+            Figure figure = figuresBox.Extract(2);
+
+            Assert.IsTrue(figure is TrianglePaper);
         }
     }
 }

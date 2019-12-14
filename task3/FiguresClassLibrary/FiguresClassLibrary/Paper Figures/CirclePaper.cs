@@ -26,6 +26,20 @@ namespace FiguresClassLibrary
         }
 
         /// <summary>
+        /// Initializes a new instance of the CirclePaper class, cutting from another figure
+        /// </summary>
+        /// <param name="figure"> Figure for cutting</param>
+        /// <param name="radius"> Circle radius</param>
+        public CirclePaper(Figure figure, float radius) :base (figure, radius)
+        {
+            if(!(figure is CirclePaper))
+            {
+                throw new Exception("The figure cannot be created.");
+            }
+            color = ((CirclePaper)figure).Сolor;
+        }
+
+        /// <summary>
         /// Figure's color
         /// </summary>
         public Сoloring Сolor
@@ -43,6 +57,41 @@ namespace FiguresClassLibrary
                     throw new Exception("This figure is already painted.");
                 }
             }
+        }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            CirclePaper cirlce = obj as CirclePaper;
+            if (cirlce == null)
+                return false;
+
+            return (base.Equals(cirlce) && Сolor.Equals(cirlce.Сolor));
+        }
+
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return (3 * Radius.GetHashCode());
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return color.ToString() + " " + base.ToString();
         }
     }
 }
