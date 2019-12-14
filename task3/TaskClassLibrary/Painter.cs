@@ -15,7 +15,7 @@ namespace TaskClassLibrary
         /// <summary>
         /// Paints a figure in a given color
         /// </summary>
-        /// <param name="figure"> Figure</param>
+        /// <param name="figure"> Figure to paint</param>
         /// <param name="color"> Color</param>
         public void Colorize(Figure figure, Сoloring color)
         {

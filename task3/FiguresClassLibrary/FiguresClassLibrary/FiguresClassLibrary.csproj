@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Circle.cs" />
+    <Compile Include="FiguresFactory.cs" />
     <Compile Include="Film Figures\CircleFilm.cs" />
     <Compile Include="Paper Figures\CirclePaper.cs" />
     <Compile Include="Figure.cs" />

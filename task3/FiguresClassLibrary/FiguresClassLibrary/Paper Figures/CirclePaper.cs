@@ -12,6 +12,11 @@ namespace FiguresClassLibrary
     public class CirclePaper : Circle, IPaperFigure
     {
         /// <summary>
+        /// Figure's color
+        /// </summary>
+        private Сoloring color;
+
+        /// <summary>
         /// Initializes a new instance of the CirclePaper class
         /// </summary>
         /// <param name="radius"> Circle radius</param>
@@ -19,8 +24,6 @@ namespace FiguresClassLibrary
         {
             color = Сoloring.None;
         }
-
-        private Сoloring color;
 
         /// <summary>
         /// Figure's color

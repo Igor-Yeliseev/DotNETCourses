@@ -32,6 +32,8 @@ namespace FiguresClassLibrary
             }
         }
 
+
+
         /// <summary>
         /// Get the area of a circle
         /// </summary>
@@ -82,7 +84,7 @@ namespace FiguresClassLibrary
         /// <returns></returns>
         public override string ToString()
         {
-            return "This is a circle with Radius = " + Radius + ", Perimeter = " + GetPerimeter() + 
+            return "Circle with Radius = " + Radius + "; Perimeter = " + GetPerimeter() + 
                    ", Area = " + GetArea();
         }
     }

@@ -89,7 +89,10 @@ namespace FiguresClassLibrary
         /// <returns></returns>
         public override string ToString()
         {
-            return base.ToString();
+            return "Rectangle with Width = " + Width + " Height = " + Height + "; Perimeter = "
+                + GetPerimeter() + ", Area = " + GetArea();
         }
+
+
     }
 }

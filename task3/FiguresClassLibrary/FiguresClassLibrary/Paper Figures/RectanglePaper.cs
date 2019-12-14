@@ -14,7 +14,7 @@ namespace FiguresClassLibrary
         /// <summary>
         /// Figure's color
         /// </summary>
-        public Сoloring Сolor { get; set; }
+        private Сoloring color;
 
         /// <summary>
         /// Initializes a new instance of the RectanglePaper class
@@ -23,9 +23,27 @@ namespace FiguresClassLibrary
         /// <param name="height"> Height of a rectangle</param>
         public RectanglePaper(float width, float height) :base (width, height)
         {
-            Сolor = Сoloring.None;
+            color = Сoloring.None;
         }
 
-        
+        /// <summary>
+        /// Figure's color
+        /// </summary>
+        public Сoloring Сolor
+        {
+            get { return color; }
+
+            set
+            {
+                if (color == Сoloring.None)
+                {
+                    color = value;
+                }
+                else
+                {
+                    throw new Exception("This figure is already painted.");
+                }
+            }
+        }
     }
 }

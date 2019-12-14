@@ -11,10 +11,10 @@ namespace FiguresClassLibrary
     /// </summary>
     public class TrianglePaper : Triangle, IPaperFigure
     {
-        ///// <summary>
-        ///// Figure's color
-        ///// </summary>
-        //public Сoloring Сolor { get; set; }
+        /// <summary>
+        /// Figure's color
+        /// </summary>
+        private Сoloring color;
 
         /// <summary>
         /// Initializes a new instance of the TrianglePaper class
@@ -26,9 +26,7 @@ namespace FiguresClassLibrary
         {
             color = Сoloring.None;
         }
-
-        private Сoloring color;
-
+        
         /// <summary>
         /// Figure's color
         /// </summary>

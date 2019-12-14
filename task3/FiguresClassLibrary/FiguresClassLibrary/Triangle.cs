@@ -89,7 +89,7 @@ namespace FiguresClassLibrary
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (3 * SideA.GetHashCode() + 4 * SideB.GetHashCode() +
+            return (3 * SideA.GetHashCode() + 2 * SideB.GetHashCode() -
                     2 * SideC.GetHashCode());
         }
 
@@ -99,7 +99,8 @@ namespace FiguresClassLibrary
         /// <returns></returns>
         public override string ToString()
         {
-            return base.ToString();
+            return "Triangle with sides: A = " + SideA + ", B = " + SideB + ", C = " + SideB + 
+                "; Perimeter = " + GetPerimeter() + ", Area = " + GetArea();
         }
     }
 }

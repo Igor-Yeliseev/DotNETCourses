@@ -11,12 +11,16 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            float expectedArea = 26.2f;
+
+            TrianglePaper triangle = new TrianglePaper(1.1f, 1.5427f, 1.7f);
 
 
-            TrianglePaper figure = new TrianglePaper(1, 1, 1);
+            Rectangle rectangle = new Rectangle(8.4f, 4.7f);
 
-            figure.Сolor = Сoloring.Blue;
-            figure.Сolor = Сoloring.Blue;
+            float actualArea = rectangle.GetPerimeter();
+
+            Console.WriteLine("area = " + actualArea + "\nexpected = " + expectedArea);
 
             Console.ReadKey();
 
