@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace FiguresClassLibrary
 {
-    interface IPaperFigure
+    /// <summary>
+    /// Interface representing a paper figure
+    /// </summary>
+    public interface IPaperFigure
     {
+        /// <summary>
+        /// Figure's color
+        /// </summary>
         Сoloring Сolor { get; set; }
-        void Paint(Сoloring color);
     }
 }

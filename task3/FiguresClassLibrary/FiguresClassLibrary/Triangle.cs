@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing an triangle
     /// </summary>
-    class Triangle : Figure
+    public class Triangle : Figure
     {
         /// <summary>
         /// The side A of a triangle

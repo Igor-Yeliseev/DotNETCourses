@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a film triangle
     /// </summary>
-    class TriangleFilm : Triangle, IFilmFigure
+    public class TriangleFilm : Triangle, IFilmFigure
     {
         /// <summary>
         /// Initializes a new instance of the TriangleFilm class

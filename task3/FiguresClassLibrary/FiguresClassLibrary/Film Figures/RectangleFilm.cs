@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class  representing a film rectangle
     /// </summary>
-    class RectangleFilm : Rectangle, IFilmFigure
+    public class RectangleFilm : Rectangle, IFilmFigure
     {
         /// <summary>
         /// Initializes a new instance of the RectangleFilm class

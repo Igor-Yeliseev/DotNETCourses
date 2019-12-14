@@ -9,12 +9,12 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a paper triangle
     /// </summary>
-    class TrianglePaper : Triangle, IPaperFigure
+    public class TrianglePaper : Triangle, IPaperFigure
     {
-        /// <summary>
-        /// Figure's color
-        /// </summary>
-        public Сoloring Сolor { get; set; }
+        ///// <summary>
+        ///// Figure's color
+        ///// </summary>
+        //public Сoloring Сolor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the TrianglePaper class
@@ -24,22 +24,28 @@ namespace FiguresClassLibrary
         /// <param name="c"> Third side of a triangle</param>
         public TrianglePaper(float a, float b, float c) :base (a, b, c)
         {
-            Сolor = Сoloring.None;
+            color = Сoloring.None;
         }
 
+        private Сoloring color;
+
         /// <summary>
-        /// Paint a triangle in a specific color 
+        /// Figure's color
         /// </summary>
-        /// <param name="color"> Fill color </param>
-        public void Paint(Сoloring color)
+        public Сoloring Сolor
         {
-            if (Сolor == Сoloring.None)
+            get { return color; }
+
+            set
             {
-                Сolor = color;
-            }
-            else
-            {
-                throw new Exception("This triangle is already painted");
+                if (color == Сoloring.None)
+                {
+                    color = value;
+                }
+                else
+                {
+                    throw new Exception("This figure is already painted.");
+                }
             }
         }
     }

@@ -9,35 +9,36 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a paper circle
     /// </summary>
-    class CirclePaper : Circle, IPaperFigure
+    public class CirclePaper : Circle, IPaperFigure
     {
-        /// <summary>
-        /// Figure's color
-        /// </summary>
-        public Сoloring Сolor { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the CirclePaper class
         /// </summary>
         /// <param name="radius"> Circle radius</param>
         public CirclePaper(float radius) :base (radius)
         {
-            Сolor = Сoloring.None;
+            color = Сoloring.None;
         }
 
+        private Сoloring color;
+
         /// <summary>
-        /// Paint a circle in a specific color 
+        /// Figure's color
         /// </summary>
-        /// <param name="color"> Fill color</param>
-        public void Paint(Сoloring color)
+        public Сoloring Сolor
         {
-            if(Сolor == Сoloring.None)
+            get { return color; }
+
+            set
             {
-                Сolor = color;
-            }
-            else
-            {
-                throw new Exception("This circle is already painted");
+                if (color == Сoloring.None)
+                {
+                    color = value;
+                }
+                else
+                {
+                    throw new Exception("This figure is already painted.");
+                }
             }
         }
     }

@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 
 namespace FiguresClassLibrary
 {
+    
     /// <summary>
-    /// Enum representing the material type of a sheet
+    /// Class representing a common figure
     /// </summary>
-    public enum MaterialType
+    public abstract class Figure
     {
         /// <summary>
-        /// Represents paper
+        /// Get perimeter of the figure
         /// </summary>
-        Paper,
+        /// <returns></returns>
+        public abstract float GetPerimeter();
+
         /// <summary>
-        /// Represents some film material
+        /// Get area of the figure
         /// </summary>
-        Film
+        /// <returns></returns>
+        public abstract float GetArea();
+    
     }
+
 
     /// <summary>
     /// Enum representing figure's color
@@ -66,25 +72,5 @@ namespace FiguresClassLibrary
         /// No color
         /// </summary>
         None
-    }
-
-    /// <summary>
-    /// Class representing a common figure
-    /// </summary>
-    public abstract class Figure
-    {
-        /// <summary>
-        /// Get perimeter of the figure
-        /// </summary>
-        /// <returns></returns>
-        public abstract float GetPerimeter();
-
-        /// <summary>
-        /// Get area of the figure
-        /// </summary>
-        /// <returns></returns>
-        public abstract float GetArea();
-
-        
     }
 }

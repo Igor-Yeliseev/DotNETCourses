@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a circle
     /// </summary>
-    class Circle : Figure
+    public class Circle : Figure
     {
         /// <summary>
         /// Circle radius

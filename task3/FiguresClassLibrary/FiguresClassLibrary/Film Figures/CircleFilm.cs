@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class representing a film circle
     /// </summary>
-    class CircleFilm : Circle, IFilmFigure
+    public class CircleFilm : Circle, IFilmFigure
     {
         /// <summary>
         /// Initializes a new instance of the CircleFilm class

@@ -9,7 +9,7 @@ namespace FiguresClassLibrary
     /// <summary>
     /// Class  representing a rectangle
     /// </summary>
-    class Rectangle : Figure
+    public class Rectangle : Figure
     {
         /// <summary>
         /// Get the width of a rectangle
