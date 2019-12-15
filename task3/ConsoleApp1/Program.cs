@@ -32,6 +32,7 @@ namespace ConsoleApp1
             //figuresBox.WriteToXml("D:/myAllFigures2.xml");
 
             Box box = Box.ReadFromXml("D:/myAllFigures.xml");
+            //Box box = Box.StreamReadFromXml("D:/strWriteAllFigures.xml");
             Console.WriteLine("count = " + box.GetCount());
 
             for (int i = 1; i < 6; i++)

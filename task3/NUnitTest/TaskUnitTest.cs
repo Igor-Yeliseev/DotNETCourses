@@ -175,6 +175,8 @@ namespace NUnitTest
 
             // Replace a figure
             figuresBox.Replace(new CircleFilm(2.7f), 5);
+
+            figuresBox.Extract(6);
         }
 
         /// <summary>
@@ -268,27 +270,61 @@ namespace NUnitTest
         }
 
         /// <summary>
-        /// Check working xml write functions
+        /// Check working xml write function
         /// </summary>
         [Test]
-        public void CheckXmlWrite()
+        public void CheckXmlWriteAll()
         {
             figuresBox.WriteToXml("D:/myAllFigures.xml");
 
-            //figuresBox.WriteToXml(Material.Paper, "D:/myPaperFigures.xml");
-
-            //figuresBox.WriteToXml(Material.Film, "D:/myFilmFigures.xml");
+            Assert.AreEqual(5, figuresBox.GetCount());
         }
 
         /// <summary>
         /// Check working xml read functions
         /// </summary>
-        [Test]
-        public void CheckXmlRead()
+        [TestCase(2, Material.Paper)]
+        [TestCase(3, Material.Film)]
+        public void CheckXmlRead(int expected, Material material)
         {
-            Box box = Box.ReadFromXml("D:/myAllFigures.xml");
+            figuresBox.WriteToXml(material, "D:/figures.xml");
 
+            Box box = Box.ReadFromXml("D:/figures.xml");
 
+            Assert.AreEqual(expected, box.GetCount());
+        }
+        
+        /// <summary>
+        /// Check working stream read and write functions
+        /// </summary>
+        [TestCase(2, Material.Paper)]
+        [TestCase(3, Material.Film)]
+        public void CheckStreamReadWrite(int expected, Material material)
+        {
+            figuresBox.StreamWriteToXml(material, "D:/strWriteFigures.xml");
+            
+            Box box1 = Box.StreamReadFromXml("D:/strWriteFigures.xml");
+            Assert.AreEqual(expected, box1.GetCount());
+
+            Box box2 = Box.ReadFromXml("D:/strWriteFigures.xml");
+            Assert.AreEqual(expected, box2.GetCount());
+
+            box1.WriteToXml("D:/strWriteFigures.xml");
+            box1 = Box.StreamReadFromXml("D:/strWriteFigures.xml");
+            Assert.AreEqual(expected, box1.GetCount());
+        }
+
+        /// <summary>
+        /// Check override functions of the box
+        /// </summary>
+        [Test]
+        public void CheckBox2()
+        {
+            Box box = figuresBox;
+
+            Box box2 = figuresBox;
+            
+            Assert.IsTrue(box.Equals(box2));
         }
     }
 }
