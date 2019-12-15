@@ -17,7 +17,7 @@ namespace TaskClassLibrary
         /// </summary>
         /// <param name="figure"> Figure to paint</param>
         /// <param name="color"> Color</param>
-        public void Colorize(Figure figure, Сoloring color)
+        public static void Colorize(Figure figure, Сoloring color)
         {
             if (figure is IPaperFigure)
             {

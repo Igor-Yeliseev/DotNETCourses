@@ -30,6 +30,7 @@ namespace NUnitTest
             
             // Create a paper circle
             figure = figuresFactory.GetFigure(Material.Paper, 5);
+            Painter.Colorize(figure, Сoloring.Orange);
             figuresBox.Add(figure);
             totalArea += figure.GetArea();
             totalPerimeter += figure.GetPerimeter();
@@ -42,6 +43,7 @@ namespace NUnitTest
 
             // Create a paper triangle
             figure = figuresFactory.GetFigure(Material.Paper, 2, 2, 2);
+            Painter.Colorize(figure, Сoloring.Green);
             figuresBox.Add(figure);
             totalArea += figure.GetArea();
             totalPerimeter += figure.GetPerimeter();
@@ -230,7 +232,7 @@ namespace NUnitTest
             // Create a painter
             Painter painter = new Painter();
 
-            painter.Colorize(triangle, Сoloring.Black);
+            Painter.Colorize(triangle, Сoloring.Black);
 
             Assert.AreEqual(triangle.Сolor, Сoloring.Black);
 
@@ -263,6 +265,30 @@ namespace NUnitTest
             Figure miniRect = new RectangleFilm(figure, 1, 1);
 
             Assert.IsNotNull(miniRect);
+        }
+
+        /// <summary>
+        /// Check working xml write functions
+        /// </summary>
+        [Test]
+        public void CheckXmlWrite()
+        {
+            figuresBox.WriteToXml("D:/myAllFigures.xml");
+
+            //figuresBox.WriteToXml(Material.Paper, "D:/myPaperFigures.xml");
+
+            //figuresBox.WriteToXml(Material.Film, "D:/myFilmFigures.xml");
+        }
+
+        /// <summary>
+        /// Check working xml read functions
+        /// </summary>
+        [Test]
+        public void CheckXmlRead()
+        {
+            Box box = Box.ReadFromXml("D:/myAllFigures.xml");
+
+
         }
     }
 }

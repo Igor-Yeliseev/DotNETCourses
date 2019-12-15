@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using FiguresClassLibrary;
 
 namespace TaskClassLibrary
@@ -80,7 +81,7 @@ namespace TaskClassLibrary
         /// <returns></returns>
         public Figure Extract(int number)
         {
-            if(figures[number] == null)
+            if(figures[number - 1] == null)
             {
                 throw new ArgumentNullException();
             }
@@ -196,6 +197,193 @@ namespace TaskClassLibrary
         }
 
         /// <summary>
+        /// Write all figures to XML file
+        /// </summary>
+        /// <param name="path"> File path</param>
+        public void WriteToXml(string path)
+        {
+            using (XmlWriter writer = XmlWriter.Create(path))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Figures");
+                foreach (Figure figure in figures)
+                {
+                    writer.WriteStartElement("Figure");
+                    writer.WriteAttributeString("type", figure.GetType().ToString());
+                    if (figure is IPaperFigure)
+                    {
+                        int colorIndex = (int)(figure as IPaperFigure).Сolor;
+                        writer.WriteAttributeString("color", colorIndex.ToString());
+                    }
+                    if (figure is Circle)
+                    {
+                        Circle circle = figure as Circle;
+                        writer.WriteAttributeString("shape", "Circle");
+                        writer.WriteElementString("Radius", circle.Radius.ToString());
+                        writer.WriteEndElement();
+                    }
+                    else if (figure is Rectangle)
+                    {
+                        Rectangle rect = figure as Rectangle;
+                        writer.WriteAttributeString("shape", "Rectangle");
+                        writer.WriteElementString("Width", rect.Width.ToString());
+                        writer.WriteElementString("Height", rect.Height.ToString());
+                        writer.WriteEndElement();
+                    }
+                    else if (figure is Triangle)
+                    {
+                        Triangle triangle = figure as Triangle;
+                        writer.WriteAttributeString("shape", "Triangle");
+                        writer.WriteElementString("SideA", triangle.SideA.ToString());
+                        writer.WriteElementString("SideB", triangle.SideB.ToString());
+                        writer.WriteElementString("SideC", triangle.SideC.ToString());
+                        writer.WriteEndElement();
+                    }
+                }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+        }
+
+        /// <summary>
+        /// Write marterial figures to XML file
+        /// </summary>
+        /// <param name="material"> Material type</param>
+        /// <param name="path"> File path</param>
+        public void WriteToXml(Material material, string path)
+        {
+            Type figureType = (material == Material.Paper) ? typeof(IPaperFigure) : typeof(IFilmFigure);
+            
+            using (XmlWriter writer = XmlWriter.Create(path))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement($"{material}Figures");
+                foreach (Figure figure in figures)
+                {
+                    if (figureType.IsAssignableFrom(figure.GetType()))
+                    {
+                        writer.WriteStartElement("Figure");
+                        writer.WriteAttributeString("type", figure.GetType().ToString());
+                        if (figureType == typeof(IPaperFigure))
+                        {
+                            int colorIndex = (int)(figure as IPaperFigure).Сolor;
+                            writer.WriteElementString("Color", colorIndex.ToString());
+                        }
+                        if (figure is Circle)
+                        {
+                            Circle circle = figure as Circle;
+                            writer.WriteElementString("Radius", circle.Radius.ToString());
+                            writer.WriteEndElement();
+                        }
+                        else if (figure is Rectangle)
+                        {
+                            Rectangle rect = figure as Rectangle;
+                            writer.WriteElementString("Width", rect.Width.ToString());
+                            writer.WriteElementString("Height", rect.Height.ToString());
+                            writer.WriteEndElement();
+                        }
+                        else if (figure is Triangle)
+                        {
+                            Triangle triangle = figure as Triangle;
+                            writer.WriteElementString("SideA", triangle.SideA.ToString());
+                            writer.WriteElementString("SideB", triangle.SideB.ToString());
+                            writer.WriteElementString("SideC", triangle.SideC.ToString());
+                            writer.WriteEndElement();
+                        }
+                    }
+                }
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+        }
+
+        /// <summary>
+        /// Read all figures from XML file
+        /// </summary>
+        /// <param name="path"> File path</param>
+        public static Box ReadFromXml(string path)
+        {
+            Figure figure = null;
+            Box box = new Box();
+            Сoloring color = Сoloring.None;
+            bool isColored = false;
+
+            using (XmlReader reader = XmlReader.Create(path))
+            {
+                int count = 0;
+
+                while (reader.Read())
+                {
+                    if(reader.NodeType == XmlNodeType.Element && reader.Name == "Figure")
+                    {
+                        //string type = reader.GetAttribute("type");
+                        //figType = Type.GetType(type + ", FiguresClassLibrary", false, true);
+                        //Console.WriteLine(figType.Equals(typeof(CirclePaper)));
+                        string shape = reader.GetAttribute("shape");
+                        
+                        if(reader.AttributeCount == 3)
+                        {
+                            color = (Сoloring)int.Parse(reader.GetAttribute("color"));
+                            isColored = true;
+                        }
+
+                        figure = LoadFigure(reader, shape);
+
+                        if(isColored)
+                            Painter.Colorize(figure, color);
+                        isColored = false;
+
+                        box.Add(figure);
+
+                        count++;
+                    }
+ 
+                }
+            }
+
+            return box;
+        }
+
+        /// <summary>
+        /// Get a blend figure
+        /// </summary>
+        /// <param name="reader"> XmlReader instance</param>
+        /// <param name="shape"> Figure type</param>
+        /// <returns></returns>
+        private static Figure LoadFigure(XmlReader reader, string shape)
+        {
+            Figure figure = null;
+            float radius, width, height, a, b, c;
+            FiguresFactory factory = new FiguresFactory();
+            Material material = (reader.AttributeCount == 3)? Material.Paper : Material.Film;
+            reader.Read();
+            switch (shape)
+            {
+                case "Circle":
+                    //reader.Read();
+                    radius = float.Parse(reader.ReadInnerXml());
+                    figure = factory.GetFigure(material, radius);
+                    break;
+                case "Rectangle":
+                    //reader.Read();
+                    width = float.Parse(reader.ReadInnerXml());
+                    //reader.Read();
+                    height = float.Parse(reader.ReadInnerXml());
+                    figure = factory.GetFigure(material, width, height);
+                    break;
+                case "Triangle":
+                    //reader.Read();
+                    a = float.Parse(reader.ReadInnerXml());
+                    b = float.Parse(reader.ReadInnerXml());
+                    c = float.Parse(reader.ReadInnerXml());
+                    figure = factory.GetFigure(material, a, b, c);
+                    break;
+            }
+            
+            return figure;
+        }
+
+        /// <summary>
         /// Return an enumerator that enumerates all elements of the set.
         /// </summary>
         /// <returns></returns>
@@ -210,3 +398,34 @@ namespace TaskClassLibrary
         }
     }
 }
+
+
+
+
+
+
+/*
+ *                                     break;
+                                case "Color":
+                                    color = (Сoloring)(int.Parse(reader.ReadInnerXml()));
+                                    isColored = true;
+                                    break;
+                                case "Radius":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+                                case "Width":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+                                case "Height":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+                                case "SideA":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+                                case "SideB":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+                                case "SideC":
+                                    data.Add(float.Parse(reader.ReadInnerXml()));
+                                    break;
+*/
