@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiguresClassLibrary", "Figu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskClassLibrary", "..\TaskClassLibrary\TaskClassLibrary.csproj", "{996861D5-940B-41EF-9D91-2DE88E35DD21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\ConsoleApp1\ConsoleApp1.csproj", "{94C4E201-F106-4500-A95B-1628200E8E9C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTest", "..\NUnitTest\NUnitTest.csproj", "{31D6A6D9-BD7D-4FA4-AA79-86E9B235E832}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{996861D5-940B-41EF-9D91-2DE88E35DD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996861D5-940B-41EF-9D91-2DE88E35DD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{996861D5-940B-41EF-9D91-2DE88E35DD21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94C4E201-F106-4500-A95B-1628200E8E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94C4E201-F106-4500-A95B-1628200E8E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94C4E201-F106-4500-A95B-1628200E8E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94C4E201-F106-4500-A95B-1628200E8E9C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31D6A6D9-BD7D-4FA4-AA79-86E9B235E832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31D6A6D9-BD7D-4FA4-AA79-86E9B235E832}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D6A6D9-BD7D-4FA4-AA79-86E9B235E832}.Release|Any CPU.ActiveCfg = Release|Any CPU
