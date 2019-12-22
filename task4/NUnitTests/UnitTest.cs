@@ -71,12 +71,14 @@ namespace NUnitTests
         /// <param name="before"> Message before</param>
         /// <param name="after"> Message after</param>
         [TestCase("Вова Пупкин", "Vova Pupkin")]
-        [TestCase("Пришла весна", "Prishla vesna")]
-        public void TestTranslit(string before, string after)
+        [TestCase("Пришла", "Prishla")]
+        [TestCase("программирование", "programmirovanie")]
+        public void TestEventHandlers(string before, string after)
         {
             string expectedAnswer = "Name: Igor Eliseev, Message: " + after;
             string actualAnswer = null;
             bool wait = true;
+            int numMessages = 0;
 
             ServerSocket server = new ServerSocket(8080, 6);
 
@@ -93,11 +95,10 @@ namespace NUnitTests
                 Message msg = server.Receive();
                 wait = false;
                 server.Send(msg);
-
+                numMessages = server.GetAllMessages().Count;
             }
 
             Thread threadServer = new Thread(new ThreadStart(ServerRun));
-            //Thread threadClient = new Thread(new ThreadStart(ClientRun));
             threadServer.Start();
 
             Client client = new Client("Igor Eliseev", null);
@@ -116,6 +117,7 @@ namespace NUnitTests
             Assert.NotNull(expectedAnswer);
             Assert.NotNull(actualAnswer);
             Assert.AreEqual(expectedAnswer, actualAnswer);
+            Assert.AreEqual(1, numMessages);
 
             threadServer.Abort();
         }

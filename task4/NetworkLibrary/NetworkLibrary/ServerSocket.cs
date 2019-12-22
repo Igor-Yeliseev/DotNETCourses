@@ -66,6 +66,15 @@ namespace NetworkLibrary
         }
 
         /// <summary>
+        /// Get all client messages
+        /// </summary>
+        /// <returns></returns>
+        public List<Message> GetAllMessages()
+        {
+            return servMsgHandler.messages;
+        }
+
+        /// <summary>
         /// Wait a new client connection
         /// </summary>
         public void WaitClientConnection()
