@@ -5,10 +5,6 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLibrary", "NetworkLibrary\NetworkLibrary.csproj", "{D952512F-51E2-46C1-A82A-66859337A5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerApp", "Server\ServerApp.csproj", "{D107BC09-52D4-4FE5-8D36-A2A7FA222218}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "Client\ClientApp.csproj", "{B8EE2AC3-641F-4E10-BCE2-5AA0AC4C09DE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTests", "..\NUnitTests\NUnitTests.csproj", "{0513B3B7-41B5-4BF0-8FF5-3B0F80BA9BFD}"
 EndProject
 Global
@@ -21,14 +17,6 @@ Global
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D107BC09-52D4-4FE5-8D36-A2A7FA222218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D107BC09-52D4-4FE5-8D36-A2A7FA222218}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D107BC09-52D4-4FE5-8D36-A2A7FA222218}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D107BC09-52D4-4FE5-8D36-A2A7FA222218}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8EE2AC3-641F-4E10-BCE2-5AA0AC4C09DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8EE2AC3-641F-4E10-BCE2-5AA0AC4C09DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8EE2AC3-641F-4E10-BCE2-5AA0AC4C09DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8EE2AC3-641F-4E10-BCE2-5AA0AC4C09DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0513B3B7-41B5-4BF0-8FF5-3B0F80BA9BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0513B3B7-41B5-4BF0-8FF5-3B0F80BA9BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0513B3B7-41B5-4BF0-8FF5-3B0F80BA9BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
