@@ -71,21 +71,22 @@ namespace NetworkLibrary
         /// </summary>
         public void Disconnect()
         {
-            if(socket != null)
-            {
-                socket.Disconnect(true);
-            }
-            else
-            {
-                throw new Exception("The socket wasn't created.");
-            }
+            socket.Disconnect(true);
+        }
+
+        /// <summary>
+        /// Closes the connection and releases all resources.
+        /// </summary>
+        public void Close()
+        {
+            socket.Close();
         }
 
         /// <summary>
         /// Send a message
         /// </summary>
         /// <param name="msg"> Message instance</param>
-        public void Send(Message msg) // д.б. bool чтобы знать отправилось ли сообщение
+        public void Send(Message msg)
         {
             byte[] clientMsg = new byte[50];
             byte[] message = new byte[1024];
@@ -97,7 +98,21 @@ namespace NetworkLibrary
             socket.Send(message);
         }
 
-        private string receiveString()
+        /// <summary>
+        /// Get response from server
+        /// </summary>
+        /// <returns></returns>
+        public string Receive()
+        {
+            string answer = null;
+            answer = ReceiveString();
+            //answer += ReceiveString();
+            //answer += ReceiveString();
+
+            return answer;
+        }
+
+        private string ReceiveString()
         {
             string recvMsg = null;
             int bytesrcv;

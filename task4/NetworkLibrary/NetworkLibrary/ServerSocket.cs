@@ -16,12 +16,23 @@ namespace NetworkLibrary
         /// <summary>
         /// Server socket instance
         /// </summary>
-        Socket serverSocket;
-        
+        Socket servListener = null;
+
+        Socket servSocket = null;
+
         /// <summary>
         /// Client sockets list
         /// </summary>
         List<ClientSocket> clientSockets = new List<ClientSocket>();
+        
+        /// <summary>
+        /// Get all client messages
+        /// </summary>
+        /// <returns></returns>
+        public List<Message> GetAllMessages()
+        {
+            return messages;
+        }
 
         /// <summary>
         /// Port number
@@ -42,33 +53,27 @@ namespace NetworkLibrary
         {
             this.port = port;
             this.numberClients = numberClients;
-        }
 
-        /// <summary>
-        /// Create a server socket
-        /// </summary>
-        public void Сreate()
-        {
             IPEndPoint ipEnd = new IPEndPoint(IPAddress.Any, port);
-            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            serverSocket.Bind(ipEnd);
+            servListener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            servListener.Bind(ipEnd);
         }
-
+        
         /// <summary>
         /// Wait a new client connection
         /// </summary>
         public void WaitClientConnection()
         {
-            if (serverSocket != null)
+            if (servListener != null)
             {
-                serverSocket.Listen(numberClients);
-                Socket socket = serverSocket.Accept();
+                servListener.Listen(numberClients);
+                servSocket = servListener.Accept();
 
                 clientSockets.Add(new ClientSocket(new Client(null, null), null, port));
             }
-            else;
+            else
             {
-                throw new Exception("Server socket wasn't created");
+                throw new Exception("Server socket listener wasn't created");
             }
         }
 
@@ -82,7 +87,7 @@ namespace NetworkLibrary
                 clnSocket.Disconnect();
             }
 
-            serverSocket.Close();
+            servSocket.Close();
         }
 
         private void SendString(string text)
@@ -91,20 +96,17 @@ namespace NetworkLibrary
 
             bytes = Encoding.ASCII.GetBytes(text);
 
-            serverSocket.Send(bytes);
+            servSocket.Send(bytes);
         }
 
-        public string ReceiveString()
+        private string ReceiveString()
         {
             byte[] recvdData = new byte[1024];
             string text = null;
             int numBytes;
 
-            if (serverSocket.Available > 0)
-            {
-                numBytes = serverSocket.Receive(recvdData);
-                text = Encoding.ASCII.GetString(recvdData, 0, numBytes);
-            }
+            numBytes = servSocket.Receive(recvdData);
+            text = Encoding.ASCII.GetString(recvdData, 0, numBytes);
 
             return text;
         }
@@ -119,7 +121,7 @@ namespace NetworkLibrary
             string msgText = ReceiveString();
 
             Message message = new Message(msgText, new Client(clientName, null));
-
+            
             return message;
         }
 
@@ -127,10 +129,11 @@ namespace NetworkLibrary
         /// Send a message to the client
         /// </summary>
         /// <param name="msg"> Message instance</param>
-        public void Send(Message msg) // д.б. bool чтобы знать отправилось ли сообщение
+        public void Send(Message msg)
         {
-            SendString(msg.client.Name);
-            SendString(msg.Text);
+            //SendString(msg.client.Name);
+            //SendString(msg.Text);
+            SendString("Succesfully ");
         }
 
 

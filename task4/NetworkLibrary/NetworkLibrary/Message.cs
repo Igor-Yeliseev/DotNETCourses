@@ -31,5 +31,14 @@ namespace NetworkLibrary
             Text = text;
             this.client = client;
         }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Name: " + client.Name + ", Message: " + Text;
+        }
     }
 }
