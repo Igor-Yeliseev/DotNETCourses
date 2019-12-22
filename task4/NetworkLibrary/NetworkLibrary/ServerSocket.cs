@@ -14,25 +14,19 @@ namespace NetworkLibrary
     public class ServerSocket
     {
         /// <summary>
-        /// Server socket instance
+        /// Server listener instance
         /// </summary>
         Socket servListener = null;
 
+        /// <summary>
+        /// Server socket instance
+        /// </summary>
         Socket servSocket = null;
 
         /// <summary>
-        /// Client sockets list
+        /// Server message handler instance
         /// </summary>
-        List<ClientSocket> clientSockets = new List<ClientSocket>();
-        
-        /// <summary>
-        /// Get all client messages
-        /// </summary>
-        /// <returns></returns>
-        public List<Message> GetAllMessages()
-        {
-            return messages;
-        }
+        ServerMessageHandler servMsgHandler =  null;
 
         /// <summary>
         /// Port number
@@ -57,8 +51,21 @@ namespace NetworkLibrary
             IPEndPoint ipEnd = new IPEndPoint(IPAddress.Any, port);
             servListener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             servListener.Bind(ipEnd);
+
+            SetupEvent();
         }
         
+        private void SetupEvent()
+        {
+            servMsgHandler = new ServerMessageHandler();
+
+            servMsgHandler.MessageEvent += (Message message) =>
+            {
+                Console.WriteLine("Событие выздвано");
+                servMsgHandler.messages.Add(message);
+            };
+        }
+
         /// <summary>
         /// Wait a new client connection
         /// </summary>
@@ -68,8 +75,6 @@ namespace NetworkLibrary
             {
                 servListener.Listen(numberClients);
                 servSocket = servListener.Accept();
-
-                clientSockets.Add(new ClientSocket(new Client(null, null), null, port));
             }
             else
             {
@@ -82,11 +87,6 @@ namespace NetworkLibrary
         /// </summary>
         public void Close()
         {
-            foreach (ClientSocket clnSocket in clientSockets)
-            {
-                clnSocket.Disconnect();
-            }
-
             servSocket.Close();
         }
 
@@ -121,7 +121,9 @@ namespace NetworkLibrary
             string msgText = ReceiveString();
 
             Message message = new Message(msgText, new Client(clientName, null));
-            
+            // Вызов события
+            servMsgHandler.CallMessageEvent(message);
+
             return message;
         }
 
@@ -131,9 +133,7 @@ namespace NetworkLibrary
         /// <param name="msg"> Message instance</param>
         public void Send(Message msg)
         {
-            //SendString(msg.client.Name);
-            //SendString(msg.Text);
-            SendString("Succesfully ");
+            SendString(msg.ToString() + ". Successful response from server.");
         }
 
 

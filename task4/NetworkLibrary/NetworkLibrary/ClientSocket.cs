@@ -24,6 +24,11 @@ namespace NetworkLibrary
         Client client;
 
         /// <summary>
+        /// Client message handler instance
+        /// </summary>
+        ClientMessageHandler clientMsgHandler = null;
+
+        /// <summary>
         /// Server IP
         /// </summary>
         string serverIP;
@@ -60,10 +65,46 @@ namespace NetworkLibrary
             {
                 socket.Connect(ipe);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        Dictionary<char, string> TRANSLIT = new Dictionary<char, string>()
+        {
+            { 'а', "a" }, { 'б', "b" }, { 'в', "v" }, { 'г', "g" }, { 'д', "d" },
+            { 'е', "e" }, { 'ё', "e" }, { 'ж', "zh" }, { 'з', "z" }, { 'и', "i" },
+            { 'й', "y" }, { 'к', "k" }, { 'л', "l" }, { 'м', "m" }, { 'н', "n" },
+            { 'о', "o" }, { 'п', "p" }, { 'р', "r" }, { 'с', "s" }, { 'т', "t" },
+            { 'у', "u" }, { 'ф', "f" }, { 'х', "kh" }, { 'ц', "ts" }, { 'ч', "ch" },
+            { 'ш', "sh" }, { 'щ', "sch" }, { 'ь', "" }, { 'ы', "y" }, { 'ъ', "" },
+            { 'э', "e" }, { 'ю', "yu" }, { 'я', "ya" }
+        };
+        
+        private void SetupEvent()
+        {
+            clientMsgHandler = new ClientMessageHandler();
+
+            clientMsgHandler.MessageEvent += (string msgText) =>
+            {
+                string engText = null;
+
+                foreach (char msgLetter in msgText)
+                {
+                    if(TRANSLIT.ContainsKey(msgLetter))
+                    {
+                        engText += TRANSLIT[msgLetter];
+                    }
+                    else
+                    {
+                        engText += msgLetter;
+                    }
+                }
+
+                // return a new translited message
+                return engText;
+            };
         }
 
         /// <summary>
@@ -104,10 +145,10 @@ namespace NetworkLibrary
         /// <returns></returns>
         public string Receive()
         {
-            string answer = null;
-            answer = ReceiveString();
-            //answer += ReceiveString();
-            //answer += ReceiveString();
+            //string answer = ReceiveString();
+            string answer = ReceiveString();
+            // trans
+            answer = clientMsgHandler.CallMessageEvent(answer);
 
             return answer;
         }
