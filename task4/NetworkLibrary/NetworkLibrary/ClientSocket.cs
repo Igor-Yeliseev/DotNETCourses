@@ -69,6 +69,8 @@ namespace NetworkLibrary
             {
                 Console.WriteLine(ex.Message);
             }
+
+            SetupEvent();
         }
 
         Dictionary<char, string> TRANSLIT = new Dictionary<char, string>()
@@ -95,6 +97,11 @@ namespace NetworkLibrary
                     if(TRANSLIT.ContainsKey(msgLetter))
                     {
                         engText += TRANSLIT[msgLetter];
+                    }
+                    else if(TRANSLIT.ContainsKey(Char.ToLower(msgLetter)))
+                    {
+                        char bigLetter = Char.ToLower(msgLetter);
+                        engText += Char.ToUpper(TRANSLIT[bigLetter][0]) + TRANSLIT[bigLetter].Substring(1);
                     }
                     else
                     {
@@ -129,14 +136,8 @@ namespace NetworkLibrary
         /// <param name="msg"> Message instance</param>
         public void Send(Message msg)
         {
-            byte[] clientMsg = new byte[50];
-            byte[] message = new byte[1024];
-            
-            clientMsg = Encoding.ASCII.GetBytes(client.Name);
-            message = Encoding.ASCII.GetBytes(msg.Text);
-            
-            socket.Send(clientMsg);
-            socket.Send(message);
+            byte[] msgBytes = Encoding.UTF8.GetBytes(msg.client.Name + "|" + msg.Text);
+            socket.Send(msgBytes);
         }
 
         /// <summary>
@@ -145,9 +146,9 @@ namespace NetworkLibrary
         /// <returns></returns>
         public string Receive()
         {
-            //string answer = ReceiveString();
             string answer = ReceiveString();
-            // trans
+            
+            // Транслитерация
             answer = clientMsgHandler.CallMessageEvent(answer);
 
             return answer;
@@ -155,17 +156,17 @@ namespace NetworkLibrary
 
         private string ReceiveString()
         {
-            string recvMsg = null;
-            int bytesrcv;
             byte[] recvData = new byte[1024];
 
+            string text = null;
+            
             if (socket.Available > 0)
             {
-                bytesrcv = socket.Receive(recvData);
-                recvMsg = Encoding.ASCII.GetString(recvData, 0, bytesrcv);
+                int numBytes = socket.Receive(recvData);
+                text = Encoding.UTF8.GetString(recvData, 0, numBytes);
             }
-
-            return recvMsg;
+            
+            return text;
         }
 
 

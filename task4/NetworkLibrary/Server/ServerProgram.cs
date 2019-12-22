@@ -31,7 +31,6 @@ namespace ServerApp
                 Console.WriteLine("Данные получены от пользователя " + msg.client.Name);
                 server.Send(msg);
                 Console.WriteLine("Ответ пользователю " + msg.client.Name + "\n");
-                Thread.Sleep(5);
             }
 
             //Action Run = delegate

@@ -61,7 +61,6 @@ namespace NetworkLibrary
 
             servMsgHandler.MessageEvent += (Message message) =>
             {
-                Console.WriteLine("Событие выздвано");
                 servMsgHandler.messages.Add(message);
             };
         }
@@ -94,7 +93,7 @@ namespace NetworkLibrary
         {
             byte[] bytes = new byte[1024];
 
-            bytes = Encoding.ASCII.GetBytes(text);
+            bytes = Encoding.UTF8.GetBytes(text);
 
             servSocket.Send(bytes);
         }
@@ -104,10 +103,13 @@ namespace NetworkLibrary
             byte[] recvdData = new byte[1024];
             string text = null;
             int numBytes;
-
-            numBytes = servSocket.Receive(recvdData);
-            text = Encoding.ASCII.GetString(recvdData, 0, numBytes);
-
+            
+            if(servSocket.Available > 0)
+            {
+                numBytes = servSocket.Receive(recvdData);
+                text = Encoding.UTF8.GetString(recvdData, 0, numBytes);
+            }
+            
             return text;
         }
 
@@ -117,8 +119,9 @@ namespace NetworkLibrary
         /// <returns></returns>
         public Message Receive()
         {
-            string clientName = ReceiveString();
-            string msgText = ReceiveString();
+            string[] data = ReceiveString().Split('|');
+            string clientName = data[0];
+            string msgText = data[1];
 
             Message message = new Message(msgText, new Client(clientName, null));
             // Вызов события
@@ -133,7 +136,7 @@ namespace NetworkLibrary
         /// <param name="msg"> Message instance</param>
         public void Send(Message msg)
         {
-            SendString(msg.ToString() + ". Successful response from server.");
+            SendString(msg.ToString());
         }
 
 
