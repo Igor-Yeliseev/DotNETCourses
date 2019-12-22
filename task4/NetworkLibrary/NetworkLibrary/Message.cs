@@ -9,7 +9,7 @@ namespace NetworkLibrary
     /// <summary>
     /// Representing a message class
     /// </summary>
-    class Message
+    public class Message
     {
         /// <summary>
         /// Message text

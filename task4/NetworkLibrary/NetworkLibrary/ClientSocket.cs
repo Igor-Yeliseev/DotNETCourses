@@ -11,7 +11,7 @@ namespace NetworkLibrary
     /// <summary>
     /// Representing a client socket
     /// </summary>
-    class ClientSocket
+    public class ClientSocket
     {
         /// <summary>
         /// Socket instance

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLibrary", "NetworkLibrary\NetworkLibrary.csproj", "{D952512F-51E2-46C1-A82A-66859337A5CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientServeConsoleApp", "..\ClientServeConsoleApp\ClientServeConsoleApp.csproj", "{427272A3-3AB9-44D5-9615-577BB003D590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D952512F-51E2-46C1-A82A-66859337A5CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{427272A3-3AB9-44D5-9615-577BB003D590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{427272A3-3AB9-44D5-9615-577BB003D590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{427272A3-3AB9-44D5-9615-577BB003D590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{427272A3-3AB9-44D5-9615-577BB003D590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
