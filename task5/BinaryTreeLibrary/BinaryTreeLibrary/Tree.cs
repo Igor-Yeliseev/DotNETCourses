@@ -121,6 +121,19 @@ namespace BinaryTreeLibrary
             return root;
         }
 
+        /// <summary>
+        /// Remove all nodes
+        /// </summary>
+        public void RemoveAll()
+        {
+            List<T> nodes = InOrderTraversal();
+            
+            foreach (T data in nodes)
+            {
+                Root = Remove(Root, data);
+            }
+        }
+
         private T InorderSuccessor(Node<T> root)
         {
             var minimum = root.Data;
@@ -175,5 +188,38 @@ namespace BinaryTreeLibrary
             return current;
         }
         
+        /// <summary>
+        /// Balance binary tree
+        /// </summary>
+        public void Balance()
+        {
+            List<T> allNodes = InOrderTraversal();
+
+            int count = Count;
+
+            // Remove all nodes
+            RemoveAll();
+            
+            BalanceTree(0, count - 1, allNodes);
+        }
+
+        /// <summary>
+        /// Balance the tree. 
+        /// </summary>
+        /// <param name="min"> The index of the first element</param>
+        /// <param name="max"> The index of the last element</param>
+        /// <param name="listNodes"> Nodes list</param>
+        private void BalanceTree(int min, int max, List<T> listNodes)
+        {
+            if (min <= max)
+            {
+                int middle = (int)Math.Ceiling((double)(min + max) / 2);
+
+                Add(listNodes[middle]);
+
+                BalanceTree(min, middle - 1, listNodes);
+                BalanceTree(middle + 1, max, listNodes);
+            }
+        }
     }
 }

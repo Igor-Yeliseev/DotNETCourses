@@ -8,6 +8,9 @@ using BinaryTreeLibrary;
 
 namespace NUnitTests
 {
+    /// <summary>
+    /// Unit tests class
+    /// </summary>
     [TestFixture]
     public class UnitTest
     {
@@ -19,7 +22,10 @@ namespace NUnitTests
         /// Students array
         /// </summary>
         Student[] students = null;
-
+        
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public UnitTest()
         {
             students = new Student[6];
@@ -103,6 +109,55 @@ namespace NUnitTests
             }
 
             Assert.AreEqual(sortScores, actualScores);
+        }
+
+        /// <summary>
+        /// Tree Balance Testing
+        /// </summary>
+        [Test]
+        public void TestBalancing()
+        {
+            Tree<int> tree = new Tree<int>();
+
+            tree.Add(6);
+            tree.Add(5);
+            tree.Add(4);
+            tree.Add(8);
+            tree.Add(9);
+            tree.Add(10);
+            tree.Add(20);
+
+            /*   Before
+             *     6
+             *   5   8
+             * 4       9
+             *          10
+             *            11
+             *            
+             */
+
+            /*     After
+             *       8
+             *    5    10
+             *  4  6  9  20
+             *
+            */
+
+            tree.Balance();
+
+            var node6 = tree.Search(6); 
+            var node5 = tree.Search(5); 
+            var node4 = tree.Search(4); 
+            var node8 = tree.Search(8); 
+            var node9 = tree.Search(9); 
+            var node10 = tree.Search(10); 
+            var node20 = tree.Search(20);
+
+            Assert.IsTrue(node5.Right == node6 && node5.Left == node4 &&
+                          node8.Right == node10 && node8.Left == node5 &&
+                          node10.Right == node20 && node10.Left == node9 &&
+                          node4.Right == null && node4.Left == null &&
+                          node6.Right == null && node6.Left == null);
         }
 
         /// <summary>
