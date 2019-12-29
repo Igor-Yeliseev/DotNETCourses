@@ -85,21 +85,30 @@ namespace BinaryTreeLibrary
         /// <summary>
         /// Remove element
         /// </summary>
+        /// <param name="data"> Data</param>
+        public void Remove(T data)
+        {
+            Root = RemoveRecursively(Root, data);
+        }
+
+        /// <summary>
+        /// Removing Element Recursively
+        /// </summary>
         /// <param name="root"> Root node</param>
         /// <param name="data"> Data</param>
         /// <returns> New root element</returns>
-        public Node<T> Remove(Node<T> root, T data)
+        private Node<T> RemoveRecursively(Node<T> root, T data)
         {
             if (root == null)
                 return root;
 
             if(data.CompareTo(root.Data) == -1)
             {
-                root.Left = Remove(root.Left, data);
+                root.Left = RemoveRecursively(root.Left, data);
             }
             else if(data.CompareTo(root.Data) == 1)
             {
-                root.Right = Remove(root.Right, data);
+                root.Right = RemoveRecursively(root.Right, data);
             }
             else
             {
@@ -115,7 +124,7 @@ namespace BinaryTreeLibrary
                 }
 
                 root.Data = InorderSuccessor(root.Right);
-                root.Right = Remove(root.Right, root.Data);
+                root.Right = RemoveRecursively(root.Right, root.Data);
             }
 
             return root;
@@ -130,18 +139,23 @@ namespace BinaryTreeLibrary
             
             foreach (T data in nodes)
             {
-                Root = Remove(Root, data);
+                Remove(data);
             }
         }
 
-        private T InorderSuccessor(Node<T> root)
+        /// <summary>
+        /// Finding the minimum value in right child of the node
+        /// </summary>
+        /// <param name="node"> Node instance</param>
+        /// <returns></returns>
+        private T InorderSuccessor(Node<T> node)
         {
-            var minimum = root.Data;
+            var minimum = node.Data;
 
-            while (root.Left != null)
+            while (node.Left != null)
             {
-                minimum = root.Left.Data;
-                root = root.Left;
+                minimum = node.Left.Data;
+                node = node.Left;
             }
 
             return minimum;
@@ -204,7 +218,7 @@ namespace BinaryTreeLibrary
         }
 
         /// <summary>
-        /// Balance the tree. 
+        /// Balance the tree
         /// </summary>
         /// <param name="min"> The index of the first element</param>
         /// <param name="max"> The index of the last element</param>

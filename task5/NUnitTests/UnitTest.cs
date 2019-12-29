@@ -99,7 +99,7 @@ namespace NUnitTests
 
             Assert.AreEqual(student, node.Data);
 
-            tree.Root = tree.Remove(tree.Root, student);
+            tree.Remove(student);
             
             string actualScores = null;
 
