@@ -9,7 +9,8 @@ namespace BinaryTreeLibrary
     /// <summary>
     /// A class representing a tree node
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> Data</typeparam>
+    [Serializable]
     public class Node<T> : IComparable
         where T : IComparable
     {
@@ -28,6 +29,14 @@ namespace BinaryTreeLibrary
         /// Right node
         /// </summary>
         public Node<T> Right { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the Node class
+        /// </summary>
+        public Node()
+        {
+
+        }
 
         /// <summary>
         /// Initializes a new instance of the Node class
