@@ -31,7 +31,41 @@ namespace DBClassLibrary.DAO
         /// <returns></returns>
         public override bool Create(T record)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                Type type = record.GetType();
+                PropertyInfo[] fields = type.GetProperties();
+                string table = type.Name.ToLower() + "s";
+
+                connection.Open();
+
+                string columns = "";
+                string values = "";
+
+                MySqlCommand command = new MySqlCommand();
+
+                foreach (PropertyInfo field in fields)
+                {
+                    if (!field.CanWrite || field.Name == "ID")
+                        continue;
+                    
+                    columns += field.Name + ", ";
+                    values += "@" + field.Name + ", ";
+
+                    command.Parameters.AddWithValue("@" + field.Name, field.GetValue(record));
+                }
+                
+                columns = columns.TrimEnd(new char[] { ',', ' ' });
+                values = values.TrimEnd(new char[] { ',', ' ' });
+
+                string query = $"INSERT INTO {table} ({columns}) VALUES ({values})";
+
+                command.Connection = connection;
+                command.CommandText = query;
+                int answer = command.ExecuteNonQuery();
+
+                return (answer > 0) ? true : false;
+            }
         }
 
         /// <summary>
@@ -52,8 +86,9 @@ namespace DBClassLibrary.DAO
                 string table = type.Name.ToLower() + 's';
 
                 PropertyInfo idProp = type.GetProperty("ID");
+                string id = "@" + idProp.Name;
 
-                string query = $"DELETE FROM {table} WHERE ID = {idProp}";
+                string query = $"DELETE FROM {table} WHERE ID = {id}";
 
                 MySqlCommand command = new MySqlCommand(query, connection);
                 
@@ -61,17 +96,48 @@ namespace DBClassLibrary.DAO
 
                 answer = command.ExecuteNonQuery();
             }
-
             return (answer > 0) ? true : false;
         }
 
         /// <summary>
-        /// Update a record
+        /// Update record
         /// </summary>
         /// <param name="record"> Record instance</param>
         public override void Update(T record)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string correctedData = "";
+                
+                Type type = record.GetType();
+                PropertyInfo idProp = type.GetProperty("ID");
+                string id = "@" + idProp.Name;
+
+                connection.Open();
+                MySqlCommand command = new MySqlCommand();
+
+                PropertyInfo[] classFields = type.GetProperties();
+
+                string table = type.Name.ToLower() + "s";
+                
+                foreach (PropertyInfo field in classFields)
+                {
+                    if (!field.CanWrite || field.Name == "ID")
+                        continue;
+
+                    correctedData += field.Name + "= @" + field.Name + ", ";
+                    command.Parameters.AddWithValue("@" + field.Name, field.GetValue(record));
+                }
+
+                correctedData = correctedData.TrimEnd(new char[] { ',', ' ' });
+
+                string query = $"UPDATE {table} SET {correctedData} WHERE ID = {id}";
+                command.Parameters.AddWithValue(id, idProp.GetValue(record));
+
+                command.Connection = connection;
+                command.CommandText = query;
+                command.ExecuteNonQuery();
+            }
         }
 
         /// <summary>
@@ -80,7 +146,50 @@ namespace DBClassLibrary.DAO
         /// <returns></returns>
         public override List<T> GetAllRecords()
         {
-            throw new NotImplementedException();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                Type type = typeof(T);
+                string table = type.Name.ToLower() + "s"; 
+                PropertyInfo[] fields = type.GetProperties();
+
+                connection.Open();
+
+                string query = $"SELECT * FROM {table}";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                List<T> records = new List<T>();
+                
+                if(reader.HasRows)
+                {
+                    object[] args = new object[reader.FieldCount];
+
+                    while(reader.Read())
+                    {
+                        if(reader.FieldCount != fields.Length)
+                        {
+                            throw new Exception($"Mismatch of the number of {typeof(T)} class fields and DataReader fields.");
+                        }
+
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            args[i] = reader.GetValue(i);
+                        }
+
+                        T obj = (T)Activator.CreateInstance(typeof(T), args);
+                        records.Add(obj);
+
+                        Array.Clear(args, 0, reader.FieldCount);
+                    }
+                }
+                else
+                {
+                    throw new Exception("There are no records in the table.");
+                }
+
+                return records;
+            }
         }
 
         /// <summary>
@@ -90,17 +199,43 @@ namespace DBClassLibrary.DAO
         /// <returns></returns>
         public override T GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                Type type = typeof(T);
+                string table = type.Name.ToLower() + "s";
+                PropertyInfo[] fields = type.GetProperties();
+                string query = $"SELECT * FROM {table} WHERE ID={id}";
+            
+                connection.Open();
 
-        /// <summary>
-        /// Get the number of records
-        /// </summary>
-        /// <returns></returns>
-        public override int GetRecordsCount()
-        {
-            throw new NotImplementedException();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ID", id);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    object[] args = new object[reader.FieldCount];
+
+                    while (reader.Read())
+                    {
+                        if (reader.FieldCount != fields.Length)
+                        {
+                            throw new Exception($"Mismatch of the number of {typeof(T)} class fields and DataReader fields.");
+                        }
+
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            args[i] = reader.GetValue(i);
+                        }
+                    }
+
+                    return (T)Activator.CreateInstance(typeof(T), args);
+                }
+                else
+                {
+                    throw new Exception("There are no records in the table.");
+                }
+            }
         }
-        
     }
 }

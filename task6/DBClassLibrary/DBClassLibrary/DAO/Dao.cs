@@ -40,10 +40,5 @@ namespace DBClassLibrary
         /// <param name="record"> Record instance</param>
         /// <returns></returns>
         public abstract bool Create(T record);
-        /// <summary>
-        /// Get the number of records
-        /// </summary>
-        /// <returns></returns>
-        public abstract int GetRecordsCount();
     }
 }

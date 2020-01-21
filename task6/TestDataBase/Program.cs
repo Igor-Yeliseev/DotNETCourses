@@ -12,10 +12,13 @@ namespace TestDataBase
         static void Main(string[] args)
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["task6ConnectionString"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
             //string connectionString = "server=localhost; port=3306; user=root; database=universitydb; password=;";
 
             MySqlConnection connection = new MySqlConnection(connectionString);
+
+            Console.WriteLine("Нажмите Enter, чтобы получить данные.");
+            Console.ReadLine();
 
             try
             {
