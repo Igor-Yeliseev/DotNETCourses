@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DBClassLibrary
 {
-    abstract class DaoFactory <T>
+    /// <summary>
+    /// Abstract DAO
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class Dao <T>
     {
         /// <summary>
         /// Get all records from table
@@ -27,9 +31,9 @@ namespace DBClassLibrary
         /// <summary>
         /// Delete specific record
         /// </summary>
-        /// <param name="id"> record Id</param>
+        /// <param name="record"> Record instance</param>
         /// <returns></returns>
-        public abstract bool Delete(int id);
+        public abstract bool Delete(T record);
         /// <summary>
         /// Add a new record
         /// </summary>
