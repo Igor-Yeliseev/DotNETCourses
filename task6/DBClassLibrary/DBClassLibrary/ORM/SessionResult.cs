@@ -58,5 +58,32 @@ namespace DBClassLibrary
             ExamID = examId;
             Grade = grade;
         }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            SessionResult res = obj as SessionResult;
+            if (res == null)
+                return false;
+
+            return (ID.Equals(res.ID) && StudentID.Equals(res.StudentID) &&
+                    ExamID.Equals(res.ExamID) && Grade.Equals(res.Grade));
+        }
+
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return (ID.GetHashCode() * 2 - StudentID.GetHashCode() - Grade.GetHashCode());
+        }
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="DAO\DaoSessionExams.cs" />
     <Compile Include="DAO\DaoSessionResults.cs" />
     <Compile Include="DAO\DaoSubjects.cs" />
+    <Compile Include="DBInitializer.cs" />
     <Compile Include="ORM\Group.cs" />
     <Compile Include="ORM\SessionExam.cs" />
     <Compile Include="ORM\SessionResult.cs" />

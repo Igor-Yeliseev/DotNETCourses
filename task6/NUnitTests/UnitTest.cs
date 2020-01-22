@@ -74,6 +74,21 @@ namespace NUnitTests
         }
 
         /// <summary>
+        /// Testing of Data base connection
+        /// </summary>
+        [Test]
+        public void TestDBInitialize()
+        {
+            DBInitializer.InsertGroups(connectionString);
+
+            DBInitializer.InsertSubjects(connectionString);
+
+            DBInitializer.InsertStudents(connectionString);
+
+            DBInitializer.InsertExams(connectionString);
+        }
+
+        /// <summary>
         /// Testing CRUD operations for Student factory
         /// </summary>
         [Test]
@@ -108,7 +123,7 @@ namespace NUnitTests
         }
 
         /// <summary>
-        /// Testing CRUD operations for Group factory
+        /// Testing CRUD operations for Groups factory
         /// </summary>
         [Test]
         public void TestDaoGroupsCRUD()
@@ -136,6 +151,37 @@ namespace NUnitTests
 
             daoGroups.Delete(group);
             Assert.AreEqual(count, daoGroups.GetAllRecords().Count);
+        }
+
+        /// <summary>
+        /// Testing CRUD operations for SessionExams factory
+        /// </summary>
+        [Test]
+        public void TestDaoSessionExamsCRUD()
+        {
+            DaoSessionExams daoExams = new DaoSessionExams(connectionString);
+
+            var allExams = daoExams.GetAllRecords();
+            int count = allExams.Count;
+
+            SessionExam exam = new SessionExam(2, 8, "exam", new DateTime(2020, 12, 21));
+            daoExams.Create(exam);
+
+            allExams = daoExams.GetAllRecords();
+            Assert.AreEqual(count + 1, allExams.Count);
+
+            exam.ID = allExams.Last().ID;
+
+            exam.GroupID = 3;
+            exam.SubjectID = 3;
+
+            daoExams.Update(exam);
+
+            SessionExam updExam = daoExams.GetById(exam.ID);
+            Assert.AreEqual(exam, updExam);
+
+            daoExams.Delete(exam);
+            Assert.AreEqual(count, daoExams.GetAllRecords().Count);
         }
     }
 }

@@ -11,6 +11,11 @@ namespace TestDataBase
     {
         static void Main(string[] args)
         {
+            DateTime date1 = new DateTime(2017, 1, 2);
+            date1 = date1.Add(new TimeSpan(155, 0, 0, 0));
+            date1 = date1.Add(new TimeSpan(210, 0, 0, 0));
+
+            Console.WriteLine(date1);
 
             string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
             //string connectionString = "server=localhost; port=3306; user=root; database=universitydb; password=;";

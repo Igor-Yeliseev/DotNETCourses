@@ -67,5 +67,33 @@ namespace DBClassLibrary
             Type = type;
             Date = date;
         }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj"> The object to compare with the current object.</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            SessionExam exm = obj as SessionExam;
+            if (exm == null)
+                return false;
+
+            return (ID.Equals(exm.ID) && GroupID.Equals(exm.GroupID) &&
+                    SubjectID.Equals(exm.SubjectID) && Type.Equals(exm.Type) &&
+                    Date.Equals(exm.Date));
+        }
+
+        /// <summary>
+        /// Get a hash code for the current object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return (ID.GetHashCode() + 37 - GroupID.GetHashCode() - SubjectID.GetHashCode());
+        }
     }
 }
