@@ -78,7 +78,7 @@ BEFORE INSERT ON `sessionresults` FOR EACH ROW
 BEGIN
 	DECLARE amount INT;
 	SET @amount = 0;
-    SET @amount = (SELECT COUNT(Exam_ID) FROM session_results WHERE StudentID = NEW.StudentID 
+    SET @amount = (SELECT COUNT(ExamID) FROM sessionresults WHERE StudentID = NEW.StudentID 
 								AND ExamID = NEW.ExamID );
 	IF (@amount > 0) THEN
 		SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'This student already has a grade in this subject.';

@@ -216,7 +216,7 @@ namespace DBClassLibrary
                                         "VALUES(@GroupID, @SubjectID, @Type, @Date)";
 
                             iter++;
-                            exIDgrID.Add(iter, (short)(i + 1));
+                            exIDgrID.Add(iter, i + 1);
 
                             command = new MySqlCommand(query, connection);
                             command.Parameters.AddWithValue("@GroupID", i + 1);
@@ -252,16 +252,17 @@ namespace DBClassLibrary
 
                 for (int i = 0; i < exIDgrID.Count; i++)
                 {
+                    var Ids = stIDgrID.Where(x => x.Value.Equals(exIDgrID[i + 1])).Select(x => x.Key);
 
-                    for (int j = 0; j < firstNames.Length; j++)
+                    for (int j = 0; j < Ids.Count(); j++)
                     {
                         grade = rand.Next(1, 11);
 
                         string query = "INSERT INTO sessionresults (StudentID, ExamID, Grade)" +
                                             "VALUES(@StudentID, @ExamID, @Grade)";
-
+                        
                         command = new MySqlCommand(query, connection);
-                        command.Parameters.AddWithValue("@StudentID", 1);
+                        command.Parameters.AddWithValue("@StudentID", Ids.ElementAt(j));
                         command.Parameters.AddWithValue("@ExamID", i + 1);
                         command.Parameters.AddWithValue("@Grade", grade);
                         command.ExecuteNonQuery();

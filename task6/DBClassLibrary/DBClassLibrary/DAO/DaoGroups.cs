@@ -9,7 +9,7 @@ namespace DBClassLibrary.DAO
     /// <summary>
     /// Groups factory
     /// </summary>
-    public class DaoGroups : DaoFactory<Group>
+    public class DaoGroups : Dao<Group>
     {
         /// <summary>
         /// Initializes a new instance of the DaoGroups class

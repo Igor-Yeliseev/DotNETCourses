@@ -9,7 +9,7 @@ namespace DBClassLibrary.DAO
     /// <summary>
     /// SessionResults factory
     /// </summary>
-    public class DaoSessionResults : DaoFactory<SessionResult>
+    public class DaoSessionResults : Dao<SessionResult>
     {
         /// <summary>
         /// Initializes a new instance of the DaoSessionResults class

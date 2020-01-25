@@ -10,7 +10,7 @@ namespace DBClassLibrary
     /// <summary>
     /// Students factory
     /// </summary>
-    public class DaoStudents : DaoFactory<Student>
+    public class DaoStudents : Dao<Student>
     {
         /// <summary>
         /// Initializes a new instance of the DaoStudents class

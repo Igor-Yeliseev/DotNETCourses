@@ -9,7 +9,7 @@ namespace DBClassLibrary.DAO
     /// <summary>
     /// SessionExam factory
     /// </summary>
-    public class DaoSessionExams : DaoFactory<SessionExam>
+    public class DaoSessionExams : Dao<SessionExam>
     {
         /// <summary>
         /// Initializes a new instance of the DaoSessionExams class

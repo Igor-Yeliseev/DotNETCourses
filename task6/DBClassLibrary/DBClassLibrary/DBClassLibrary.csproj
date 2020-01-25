@@ -47,8 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DaoFactory.cs" />
+    <Compile Include="DAO\DaoAbstract.cs" />
     <Compile Include="DAO\Dao.cs" />
-    <Compile Include="DAO\DaoFactory.cs" />
+    <Compile Include="DAO\IDaoFactory.cs" />
     <Compile Include="DAO\DaoGroups.cs" />
     <Compile Include="DAO\DaoSessionExams.cs" />
     <Compile Include="DAO\DaoSessionResults.cs" />

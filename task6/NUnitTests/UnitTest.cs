@@ -86,6 +86,8 @@ namespace NUnitTests
             DBInitializer.InsertStudents(connectionString);
 
             DBInitializer.InsertExams(connectionString);
+
+            DBInitializer.InsertResults(connectionString);
         }
 
         /// <summary>

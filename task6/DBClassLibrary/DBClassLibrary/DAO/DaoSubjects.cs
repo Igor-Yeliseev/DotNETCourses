@@ -9,7 +9,7 @@ namespace DBClassLibrary.DAO
     /// <summary>
     /// Subjects factoty
     /// </summary>
-    public class DaoSubjects : DaoFactory<Subject>
+    public class DaoSubjects : Dao<Subject>
     {
         /// <summary>
         /// Initializes a new instance of the DaoSubjects class
