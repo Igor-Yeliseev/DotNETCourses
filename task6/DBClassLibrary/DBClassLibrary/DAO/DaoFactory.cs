@@ -47,7 +47,7 @@ namespace DBClassLibrary
         /// <returns></returns>
         public DaoGroups GetDaoGroups()
         {
-            if(daoGroups != null)
+            if(daoGroups == null)
             {
                 daoGroups = new DaoGroups(ConnectionString);
             }
@@ -60,7 +60,7 @@ namespace DBClassLibrary
         /// <returns></returns>
         public DaoSessionExams GetDaoSessExams()
         {
-            if (daoSessionExams != null)
+            if (daoSessionExams == null)
             {
                 daoSessionExams = new DaoSessionExams(ConnectionString);
             }
@@ -73,7 +73,7 @@ namespace DBClassLibrary
         /// <returns></returns>
         public DaoSessionResults GetDaoSessResults()
         {
-            if (daoSessionResults != null)
+            if (daoSessionResults == null)
             {
                 daoSessionResults = new DaoSessionResults(ConnectionString);
             }
@@ -86,7 +86,7 @@ namespace DBClassLibrary
         /// <returns></returns>
         public DaoStudents GetDaoStudents()
         {
-            if (daoStudents != null)
+            if (daoStudents == null)
             {
                 daoStudents = new DaoStudents(ConnectionString);
             }
@@ -99,7 +99,7 @@ namespace DBClassLibrary
         /// <returns></returns>
         public DaoSubjects GetDaoSubjects()
         {
-            if (daoSubjects != null)
+            if (daoSubjects == null)
             {
                 daoSubjects = new DaoSubjects(ConnectionString);
             }

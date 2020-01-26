@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MySql.Data.dll</HintPath>
@@ -47,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DaoFactory.cs" />
+    <Compile Include="DAO\DaoFactory.cs" />
     <Compile Include="DAO\DaoAbstract.cs" />
     <Compile Include="DAO\Dao.cs" />
     <Compile Include="DAO\IDaoFactory.cs" />
@@ -56,6 +59,11 @@
     <Compile Include="DAO\DaoSessionResults.cs" />
     <Compile Include="DAO\DaoSubjects.cs" />
     <Compile Include="DBInitializer.cs" />
+    <Compile Include="ExcelExport\ExcelExport.cs" />
+    <Compile Include="ExcelExport\Reports.cs" />
+    <Compile Include="ExcelExport\ReportBadStudent.cs" />
+    <Compile Include="ExcelExport\ReportSessionGroup.cs" />
+    <Compile Include="ExcelExport\ReportSessionStudent.cs" />
     <Compile Include="ORM\Group.cs" />
     <Compile Include="ORM\SessionExam.cs" />
     <Compile Include="ORM\SessionResult.cs" />

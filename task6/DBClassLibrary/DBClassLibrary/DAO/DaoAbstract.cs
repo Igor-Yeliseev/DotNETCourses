@@ -40,11 +40,5 @@ namespace DBClassLibrary
         /// <param name="record"> Record instance</param>
         /// <returns></returns>
         public abstract bool Create(T record);
-
-        /// <summary>
-        /// Save to xlsx
-        /// </summary>
-        /// <param name="path"> File path</param>
-        public abstract void Save(string path);
     }
 }

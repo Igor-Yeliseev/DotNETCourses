@@ -16,6 +16,7 @@ namespace NUnitTests
     [TestFixture]
     public class UnitTest
     {
+        DaoFactory daoFactory = null;
         MySqlConnection connection = null;
         string connectionString = null;
 
@@ -25,52 +26,37 @@ namespace NUnitTests
         public UnitTest()
         {
             connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-
+            
             connection = new MySqlConnection(connectionString);
+
+            daoFactory = DaoFactory.GetInstance(connectionString);
         }
 
         /// <summary>
-        /// Testing of Data base connection
+        /// Testing object equality
         /// </summary>
         [Test]
-        public void TestDataBase()
+        public void TestEntitiesEquals()
         {
-            string rowStr = null;
-            string expected = "1;  Синицин;  Евгений;  Михайлович;  2;  муж;  20.04.1999 0:00:00;  ";
+            Student std1 = new Student(2, "Igor", "Yeliseev", "Andreevich", 1, "male", new DateTime(1999, 5, 22));
+            Student std2 = new Student(2, "Igor", "Yeliseev", "Andreevich", 1, "male", new DateTime(1999, 5, 22));
+            Assert.AreEqual(std1, std2);
 
-            try
-            {
-                connection.Open();
+            Subject sbj1 = new Subject(2, "Geography");
+            Subject sbj2 = new Subject(2, "Geography");
+            Assert.AreEqual(sbj1, sbj2);
 
-                MySqlCommand command = new MySqlCommand("SELECT * FROM students", connection);
+            Group group1 = new Group(1, "IS-21");
+            Group group2 = new Group(1, "IS-21");
+            Assert.AreEqual(group1, group2);
 
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                //Console.Write(Convert.ToString(reader.GetValue(i)) + ";  ");
-                                rowStr += Convert.ToString(reader.GetValue(i)) + ";  ";
-                            }
-                            break;
-                            //Console.WriteLine();
-                        }
-                    }
-                }
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+            SessionExam exam1 = new SessionExam(21, 1, 2, "exam", 2, new DateTime(2020, 1, 12));
+            SessionExam exam2 = new SessionExam(21, 1, 2, "exam", 2, new DateTime(2020, 1, 12));
+            Assert.AreEqual(exam1, exam2);
 
-            Assert.AreEqual(expected, rowStr);
+            SessionResult result1 = new SessionResult(1, 1, 3, 8);
+            SessionResult result2 = new SessionResult(1, 1, 3, 8);
+            Assert.AreEqual(result1, result2);
         }
 
         /// <summary>
@@ -80,13 +66,9 @@ namespace NUnitTests
         public void TestDBInitialize()
         {
             DBInitializer.InsertGroups(connectionString);
-
             DBInitializer.InsertSubjects(connectionString);
-
             DBInitializer.InsertStudents(connectionString);
-
             DBInitializer.InsertExams(connectionString);
-
             DBInitializer.InsertResults(connectionString);
         }
 
@@ -166,7 +148,7 @@ namespace NUnitTests
             var allExams = daoExams.GetAllRecords();
             int count = allExams.Count;
 
-            SessionExam exam = new SessionExam(2, 8, "exam", new DateTime(2020, 12, 21));
+            SessionExam exam = new SessionExam(2, 8, "exam", 1, new DateTime(2020, 12, 21));
             daoExams.Create(exam);
 
             allExams = daoExams.GetAllRecords();
@@ -184,6 +166,23 @@ namespace NUnitTests
 
             daoExams.Delete(exam);
             Assert.AreEqual(count, daoExams.GetAllRecords().Count);
+        }
+
+        /// <summary>
+        /// Testing save to Excel tables
+        /// </summary>
+        [Test]
+        public void TestSaveExcell()
+        {
+            Reports reports = new Reports(daoFactory);
+            var studentsResults = reports.GetStudentsResults(1, "ИТИ-21");
+            var groupResults = reports.GetGroupResults();
+            var badStudents = reports.GetBadStudents();
+
+            ExcelExport.SaveToXlsx(@"D:\", "StudentsITI-21", studentsResults);
+            ExcelExport.SaveToXlsx(@"D:\", "Groups", groupResults);
+            ExcelExport.SaveToXlsx(@"D:\", "BadStudents", badStudents);
+            
         }
     }
 }

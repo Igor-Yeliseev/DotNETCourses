@@ -28,7 +28,7 @@ namespace DBClassLibrary
         static string[] lastNames = new string[20]
         {
             "Синицин", "Елисеев", "Карась", "Иванов", "Стельченко", "Гумар",
-            "Бартновск", "Малиновск", "Гончар", "Шучалин", "Степанов", "Стефановск", "Петрушкин",
+            "Бартновск", "Малиновск", "Гончар", "Шучалин", "Степанов", "Василевск", "Петрушкин",
             "Гаврилов", "Сидоров", "Федоренко", "Петров", "Павленко", "Друзь", "Вакулин"
         };
 
@@ -76,7 +76,7 @@ namespace DBClassLibrary
                     lastName += (gender == "жен" && lastName.Last() == 'в' ) ? "a" : "";
                     lastName += (gender == "жен" && lastName.Last() == 'н' ) ? "a" : "";
                     int indx = lastName.Length - 2;
-                    lastName += (gender == "жен" && lastName.Substring(indx) == "cк") ? "aя" : "";
+                    lastName += (gender == "жен" && lastName.Substring(indx) == "ск") ? "aя" : "";
                     lastName += (gender == "муж" && lastName.Substring(indx) == "ск") ? "ий" : "";
                     middleName += (gender == "жен") ? "на" : "ич";
  
@@ -212,8 +212,8 @@ namespace DBClassLibrary
                             if (session != 0)
                                 date = date.Add(new TimeSpan(daysBetween[session], 0, 0, 0));
 
-                            string query = "INSERT INTO sessionexams (GroupID, SubjectID, Type, Date)" +
-                                        "VALUES(@GroupID, @SubjectID, @Type, @Date)";
+                            string query = "INSERT INTO sessionexams (GroupID, SubjectID, Type, SessionNumber, Date)" +
+                                        "VALUES(@GroupID, @SubjectID, @Type, @SessionNumber, @Date)";
 
                             iter++;
                             exIDgrID.Add(iter, i + 1);
@@ -222,6 +222,7 @@ namespace DBClassLibrary
                             command.Parameters.AddWithValue("@GroupID", i + 1);
                             command.Parameters.AddWithValue("@SubjectID", exIndx + 1);
                             command.Parameters.AddWithValue("@Type", examTypes[exIndx]);
+                            command.Parameters.AddWithValue("@SessionNumber", session + 1);
                             command.Parameters.AddWithValue("@Date", date);
                             command.ExecuteNonQuery();
 

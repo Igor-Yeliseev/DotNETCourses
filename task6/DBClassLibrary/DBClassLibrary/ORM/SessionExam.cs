@@ -37,19 +37,26 @@ namespace DBClassLibrary
         public DateTime Date { get; set; }
 
         /// <summary>
+        /// Session number
+        /// </summary>
+        public int SessionNumber { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the SessionExam class
         /// </summary>
         /// <param name="id"> Record Id</param>
         /// <param name="groupId"> Group Id</param>
         /// <param name="subjectId"> Subject Id</param>
         /// <param name="type"> Type of exam (credit / exam)</param>
+        /// <param name="sessNumber"> Session number</param>
         /// <param name="date"> Exam date</param>
-        public SessionExam(int id, int groupId, int subjectId, string type, DateTime date)
+        public SessionExam(int id, int groupId, int subjectId, string type, int sessNumber, DateTime date)
         {
             ID = id;
             GroupID = groupId;
             SubjectID = subjectId;
             Type = type;
+            SessionNumber = sessNumber;
             Date = date;
         }
 
@@ -59,12 +66,14 @@ namespace DBClassLibrary
         /// <param name="groupId"> Group Id</param>
         /// <param name="subjectId"> Subject Id</param>
         /// <param name="type"> Type of exam (credit / exam)</param>
+        /// <param name="sessNumber"> Session number</param>
         /// <param name="date"> Exam date</param>
-        public SessionExam(int groupId, int subjectId, string type, DateTime date)
+        public SessionExam(int groupId, int subjectId, string type, int sessNumber, DateTime date)
         {
             GroupID = groupId;
             SubjectID = subjectId;
             Type = type;
+            SessionNumber = sessNumber;
             Date = date;
         }
 

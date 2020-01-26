@@ -12,8 +12,8 @@ CREATE TABLE `universitydb`.`subjects` (
 
 CREATE TABLE `universitydb`.`students` (
   `ID` INT NOT NULL AUTO_INCREMENT,
-  `FirstName` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL ,
   `LastName` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
+  `FirstName` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL ,
   `MiddleName` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
   `GroupID` INT NOT NULL,
   `Sex` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
@@ -35,6 +35,7 @@ ADD CONSTRAINT `fk_students_groups`
   `GroupID` INT NOT NULL,
   `SubjectID` INT NOT NULL,
   `Type` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
+  `SessionNumber` INT NOT NULL,
   `Date` DATETIME NOT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_exams_groups_idx` (`GroupID` ASC),
@@ -55,7 +56,7 @@ ADD CONSTRAINT `fk_students_groups`
   `ID` INT NOT NULL AUTO_INCREMENT,
   `StudentID` INT NOT NULL,
   `ExamID` INT NOT NULL,
-  `Grade` TINYINT(1) NOT NULL,
+  `Grade` TINYINT NOT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_results_students_idx` (`StudentID` ASC),
   INDEX `fk_results_exams_idx` (`ExamID` ASC),
