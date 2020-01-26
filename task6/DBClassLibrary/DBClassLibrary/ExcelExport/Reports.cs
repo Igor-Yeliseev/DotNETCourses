@@ -1,9 +1,6 @@
 ﻿using DBClassLibrary.DAO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBClassLibrary
 {
@@ -12,7 +9,6 @@ namespace DBClassLibrary
     /// </summary>
     public class Reports
     {
-
         private DaoGroups daoGroup;
         private DaoSubjects daoSubject;
         private DaoStudents daoStudent;

@@ -10,6 +10,9 @@ namespace DBClassLibrary
     /// Initializes database tables with values
     /// </summary>
     public class DBInitializer
+
+        // Запросы писал напрямую, а не через Dao, 
+        // чтобы сэкономить время из-за требуемого постоянного подключения к БД
     {
         static string[] firstNames = new string[20]
         {
@@ -246,9 +249,6 @@ namespace DBClassLibrary
                 MySqlCommand command = null;
                 Random rand = new Random();
                 connection.Open();
-
-                int studID;
-                int examID;
                 int grade;
 
                 for (int i = 0; i < exIDgrID.Count; i++)

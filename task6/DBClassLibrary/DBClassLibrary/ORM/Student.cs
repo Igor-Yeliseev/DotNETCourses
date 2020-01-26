@@ -1,26 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBClassLibrary
 {
-    /// <summary>
-    /// Student gender
-    /// </summary>
-    enum Sex
-    {
-        /// <summary>
-        /// Male
-        /// </summary>
-        Male = 1,
-        /// <summary>
-        /// Female
-        /// </summary>
-        Female
-    }
-
     /// <summary>
     /// Represents a student class
     /// </summary>

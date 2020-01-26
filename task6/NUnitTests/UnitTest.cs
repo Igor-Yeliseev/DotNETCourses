@@ -60,7 +60,7 @@ namespace NUnitTests
         }
 
         /// <summary>
-        /// Testing of Data base connection
+        /// Testing of initializing data base
         /// </summary>
         [Test]
         public void TestDBInitialize()

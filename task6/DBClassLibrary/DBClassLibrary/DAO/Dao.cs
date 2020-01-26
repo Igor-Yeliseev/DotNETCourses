@@ -2,17 +2,15 @@
 using System.Reflection;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 
 namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// 
+    /// Dao
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class Dao<T> : DaoAbstract<T>
     {
-
         private string connectionString = null;
 
         /// <summary>

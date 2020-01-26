@@ -52,7 +52,6 @@ namespace DBClassLibrary
             workBook.SaveAs(finalPath);
             workBook.Close();
             excelApp.Quit();
-
         }
     }
 }
