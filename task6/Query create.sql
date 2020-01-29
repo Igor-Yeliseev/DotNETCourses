@@ -1,4 +1,4 @@
-#CREATE SCHEMA 'universitydb';
+CREATE SCHEMA 'universitydb';
 
   CREATE TABLE `universitydb`.`groups` (
   `ID` INT NOT NULL AUTO_INCREMENT,

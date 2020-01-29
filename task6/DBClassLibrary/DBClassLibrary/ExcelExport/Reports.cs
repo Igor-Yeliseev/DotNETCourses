@@ -72,7 +72,6 @@ namespace DBClassLibrary
             }
 
             return studs;
-            
         }
 
         /// <summary>
@@ -98,6 +97,7 @@ namespace DBClassLibrary
                                  join grp in groups on exam.GroupID equals grp.ID
                                  where exam.GroupID == item
                                  select result;
+
                 int minGrade = allResults.Min(x => x.Grade);
                 int maxGrade = allResults.Max(x => x.Grade);
                 double avgGrade = allResults.Average(x => x.Grade);

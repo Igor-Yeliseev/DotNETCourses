@@ -1,0 +1,64 @@
+USE [master]
+GO
+CREATE DATABASE UniversityDB
+GO
+USE UniversityDB;
+GO
+
+CREATE TABLE Groups
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(20) NOT NULL);
+
+CREATE TABLE Subjects
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(20) NOT NULL);
+
+CREATE TABLE Students (
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+LastName VARCHAR(45) NOT NULL,
+FirstName VARCHAR(45) NOT NULL ,
+MiddleName VARCHAR(45) NOT NULL,
+GroupID INT NOT NULL,
+Sex VARCHAR(45) NOT NULL,
+BirthDate DATE NULL,
+CONSTRAINT fk_students_groups FOREIGN KEY(GroupID)
+REFERENCES Groups(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
+
+CREATE TABLE Sessionexams (
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+GroupID INT NOT NULL,
+SubjectID INT NOT NULL,
+Type VARCHAR(30) NOT NULL,
+SessionNumber INT NOT NULL,
+Date DATETIME NOT NULL,
+CONSTRAINT fk_exams_groups FOREIGN KEY(GroupID)
+REFERENCES Groups(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+CONSTRAINT fk_exams_subjects FOREIGN KEY(SubjectID)
+REFERENCES Subjects(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
+
+CREATE TABLE Sessionresults (
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+StudentID INT NOT NULL,
+ExamID INT NOT NULL,
+Grade TINYINT NOT NULL,
+CONSTRAINT fk_results_students FOREIGN KEY(StudentID)
+REFERENCES Students(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+CONSTRAINT fk_results_exams FOREIGN KEY(ExamID)
+REFERENCES Sessionexams(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
+
+USE UniversityDB;
+GO
+
+CREATE TRIGGER trigger_same_row ON Sessionresults
+INSTEAD OF INSERT
+AS
+BEGIN
+	DECLARE @amount INT;
+	DECLARE @new_student_id INT,
+			@new_exam_id INT;
+	SET @amount = 0;
+	SELECT @new_student_id = i.StudentID, @new_exam_id = i.ExamID FROM inserted i;
+    SET @amount = (SELECT COUNT(ExamID) FROM Sessionresults WHERE StudentID = @new_student_id
+								AND ExamID = @new_exam_id );
+	IF (@amount > 0)
+		RAISERROR('This student already has a grade in this subject.', 16, 1);
+		ROLLBACK;
+END;
