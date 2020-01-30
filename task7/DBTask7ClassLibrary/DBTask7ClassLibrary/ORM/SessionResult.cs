@@ -35,6 +35,14 @@ namespace DBTask7ClassLibrary
         /// <summary>
         /// Initializes a new instance of the SessionResult class
         /// </summary>
+        public SessionResult()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the SessionResult class
+        /// </summary>
         /// <param name="id"> Record Id</param>
         /// <param name="studentId"> Student Id</param>
         /// <param name="examId"> Exam Id</param>

@@ -20,17 +20,5 @@ namespace DBTask7ClassLibrary.DAO
 
         }
 
-        /// <summary>
-        /// Get record by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public override Student GetById(int id)
-        {
-            var instance = from record in db.GetTable<Student>()
-                           where record.ID == id
-                           select record;
-            return (instance as Student);
-        }
     }
 }

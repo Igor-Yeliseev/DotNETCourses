@@ -46,6 +46,14 @@ namespace DBTask7ClassLibrary
         public int SessionNumber { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of SessionExam class
+        /// </summary>
+        public SessionExam()
+        {
+
+        }
+
+        /// <summary>
         /// Initializes a new instance of the SessionExam class
         /// </summary>
         /// <param name="id"> Record Id</param>

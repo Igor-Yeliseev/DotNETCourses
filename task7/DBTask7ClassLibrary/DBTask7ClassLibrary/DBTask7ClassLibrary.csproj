@@ -53,10 +53,12 @@
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\IDaoFactory.cs" />
     <Compile Include="DBInitializer.cs" />
+    <Compile Include="ORM\Examinator.cs" />
     <Compile Include="ORM\Group.cs" />
     <Compile Include="ORM\IRecord.cs" />
     <Compile Include="ORM\SessionExam.cs" />
     <Compile Include="ORM\SessionResult.cs" />
+    <Compile Include="ORM\Specialty.cs" />
     <Compile Include="ORM\Student.cs" />
     <Compile Include="ORM\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -24,7 +24,7 @@ namespace DBConsoleApp
             //daoSubjects.Create(subject1);
 
 
-            subject1.Name = "DFDFFDFDFDDFD";
+            subject1.Name = "AAAAAAAAAAAAAAAAA";
             subject1.ID = 19;
 
             daoSubjects.Update(subject1);

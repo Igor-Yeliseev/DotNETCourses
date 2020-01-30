@@ -116,7 +116,13 @@ namespace DBTask7ClassLibrary
 
         static string[] groupNames = new string[5]
         {
-            "ИТИ-", "ИТП-", "ИП-", "ПР-", "ПС-"
+            "ИТИ-", "ИТП-", "ЭТ-", "ПР-", "ПС-"
+        };
+
+        static string[] specNames = new string[5]
+        {
+            "Инженер системный программист", "Инженер системный программист",
+            "Инженер электрик", "Инженер реконструктор", "Инженер строитель"
         };
 
         /// <summary>
@@ -136,10 +142,11 @@ namespace DBTask7ClassLibrary
                     for (int j = 0; j < groupNames.Length; j++)
                     {
                         string name = groupNames[j] + (i + 1) + 1;
-                        string query = "INSERT INTO groups (Name) VALUES(@Name)";
+                        string query = "INSERT INTO groups (Name, SpecID) VALUES(@Name, @SpecID)";
 
                         command = new SqlCommand(query, connection);
                         command.Parameters.AddWithValue("@Name", name);
+                        command.Parameters.AddWithValue("@SpecID", j + 1);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -182,7 +189,6 @@ namespace DBTask7ClassLibrary
                 }
             }
         }
-
         
         /// <summary>
         /// Insert exams to the table

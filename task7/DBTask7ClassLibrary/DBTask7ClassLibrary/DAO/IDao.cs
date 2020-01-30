@@ -11,6 +11,7 @@ namespace DBTask7ClassLibrary.DAO
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IDao<T>
+        where T : class, IRecord
     {
         /// <summary>
         /// Update specific record

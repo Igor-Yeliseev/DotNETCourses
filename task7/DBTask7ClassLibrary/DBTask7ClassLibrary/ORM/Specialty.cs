@@ -1,61 +1,56 @@
-﻿using System.Data.Linq.Mapping; 
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Linq.Mapping;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DBTask7ClassLibrary
+namespace DBTask7ClassLibrary.ORM
 {
     /// <summary>
-    /// Represents a student group class
+    /// Represents a student's specialty
     /// </summary>
-    [Table(Name = "groups")]
-    public class Group : IRecord
+    [Table(Name = "Specialties")]
+    public class Specialty : IRecord
     {
         /// <summary>
-        /// Group Id
+        /// Specialty Id
         /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int ID { get; set; }
 
         /// <summary>
-        /// Group name
+        /// Specialty name
         /// </summary>
         [Column(Name = "Name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Specialty ID
+        /// Initializes a new instance of the Specialty class
         /// </summary>
-        [Column(Name = "SpecID")]
-        public int SpecID { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the Group class
-        /// </summary>
-        public Group()
+        public Specialty()
         {
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the Group class
+        /// Initializes a new instance of the Specialty class
         /// </summary>
-        /// <param name="id"> Group Id</param>
-        /// <param name="name"> Group name</param>
-        /// <param name="specId"> Specialty ID</param>
-        public Group(int id, string name, int specId)
+        /// <param name="id"> Specialty Id</param>
+        /// <param name="name"> Specialty name</param>
+        public Specialty(int id, string name)
         {
             ID = id;
             Name = name;
-            SpecID = specId;
         }
 
         /// <summary>
-        /// Initializes a new instance of the Group class
+        /// Initializes a new instance of the Specialty class
         /// </summary>
-        /// <param name="name"> Group name</param>
-        /// <param name="specId"> Specialty ID</param>
-        public Group(string name, int specId)
+        /// <param name="name"> Specialty name</param>
+        public Specialty(string name)
         {
             Name = name;
-            SpecID = specId;
         }
 
         /// <summary>
@@ -68,11 +63,11 @@ namespace DBTask7ClassLibrary
             if (obj == null)
                 return false;
 
-            Group gr = obj as Group;
-            if (gr == null)
+            Specialty spec = obj as Specialty;
+            if (spec == null)
                 return false;
 
-            return (ID.Equals(gr.ID) && Name.Equals(gr.Name));
+            return (ID.Equals(spec.ID) && Name.Equals(spec.Name));
         }
 
         /// <summary>
@@ -81,7 +76,8 @@ namespace DBTask7ClassLibrary
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (ID.GetHashCode() + 17);
+            return (ID.GetHashCode() + 3 - Name.GetHashCode() + 27);
         }
+        
     }
 }

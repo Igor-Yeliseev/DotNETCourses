@@ -20,16 +20,5 @@ namespace DBTask7ClassLibrary.DAO
 
         }
 
-        /// <summary>
-        /// Get record by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public override Subject GetById(int id)
-        {
-            var instance = db.GetTable<Subject>().Single(r => r.ID == id);
-            
-            return instance;
-        }
     }
 }

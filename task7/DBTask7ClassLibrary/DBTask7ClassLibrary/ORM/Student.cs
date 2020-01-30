@@ -54,6 +54,14 @@ namespace DBTask7ClassLibrary
         /// <summary>
         /// Initializes a new instance of the Student class
         /// </summary>
+        public Student()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Student class
+        /// </summary>
         /// <param name="id"> Student Id</param>
         /// <param name="lastName"> Student last name</param>
         /// <param name="firstName"> Student first name</param>

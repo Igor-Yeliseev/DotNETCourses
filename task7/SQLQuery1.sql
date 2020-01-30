@@ -5,8 +5,18 @@ GO
 USE UniversityDB;
 GO
 
-CREATE TABLE Groups
-(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(20) NOT NULL);
+CREATE TABLE Examinators
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(50) NOT NULL);
+
+CREATE TABLE Specialties
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(45) NOT NULL);
+
+CREATE TABLE Groups(
+ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+Name VARCHAR(20) NOT NULL,
+SpecID INT NOT NULL,
+CONSTRAINT fk_groups_specialties FOREIGN KEY(SpecID)
+REFERENCES Specialties(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
 
 CREATE TABLE Subjects
 (ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(45) NOT NULL);
@@ -29,10 +39,13 @@ SubjectID INT NOT NULL,
 Type VARCHAR(30) NOT NULL,
 SessionNumber INT NOT NULL,
 Date DATETIME NOT NULL,
+ExaminatorID INT NOT NULL,
 CONSTRAINT fk_exams_groups FOREIGN KEY(GroupID)
 REFERENCES Groups(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 CONSTRAINT fk_exams_subjects FOREIGN KEY(SubjectID)
-REFERENCES Subjects(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
+REFERENCES Subjects(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+CONSTRAINT fk_exams_examinators FOREIGN KEY(ExaminatorID)
+REFERENCES Examinators(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
 
 CREATE TABLE Sessionresults (
 ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -43,6 +56,20 @@ CONSTRAINT fk_results_students FOREIGN KEY(StudentID)
 REFERENCES Students(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 CONSTRAINT fk_results_exams FOREIGN KEY(ExamID)
 REFERENCES Sessionexams(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
+
+
+INSERT INTO Examinators (Name) VALUES ('Курочка Константин Сергеевич');
+INSERT INTO Examinators (Name) VALUES ('Комракова Евгения Владимировна');
+INSERT INTO Examinators (Name) VALUES ('Кравченко Ольга Алексеевна');
+INSERT INTO Examinators (Name) VALUES ('Стефановский Игорь Леонидович');
+INSERT INTO Examinators (Name) VALUES ('Авакян Елена Зиновьевна');
+INSERT INTO Examinators (Name) VALUES ('Кравченко Петр Петрович');
+
+INSERT INTO Specialties (Name) VALUES ('Инженер системный программист');
+INSERT INTO Specialties (Name) VALUES ('Инженер конструктор');
+INSERT INTO Specialties (Name) VALUES ('Инженер строитель');
+INSERT INTO Specialties (Name) VALUES ('Инженер электрик');
+INSERT INTO Specialties (Name) VALUES ('Горный инженер');
 
 USE UniversityDB;
 GO

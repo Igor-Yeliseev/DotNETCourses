@@ -26,7 +26,6 @@ namespace DBTask7ClassLibrary.DAO
         public Dao(string connectionString)
         {
             this.connectionString = connectionString;
-            db = new DataContext(connectionString);
             type = typeof(T);
         }
 
@@ -37,8 +36,11 @@ namespace DBTask7ClassLibrary.DAO
         /// <returns></returns>
         public void Create(T record)
         {
-            db.GetTable(type).InsertOnSubmit(record);
-            db.SubmitChanges();
+            using (DataContext db = new DataContext(connectionString))
+            {
+                db.GetTable(type).InsertOnSubmit(record);
+                db.SubmitChanges();
+            }    
         }
 
         /// <summary>
@@ -48,8 +50,13 @@ namespace DBTask7ClassLibrary.DAO
         /// <returns></returns>
         public void Delete(T record)
         {
-            db.GetTable(type).DeleteOnSubmit(record);
-            db.SubmitChanges();
+            using (DataContext db = new DataContext(connectionString))
+            {
+                T instance = db.GetTable(type).Cast<T>().Single(r => r.ID == record.ID);
+                db.GetTable(type).DeleteOnSubmit(instance);
+                //db.GetTable(type).DeleteOnSubmit(record);
+                db.SubmitChanges();
+            }   
         }
 
         /// <summary>
@@ -58,16 +65,18 @@ namespace DBTask7ClassLibrary.DAO
         /// <returns></returns>
         public List<T> GetAllRecords()
         {
-            var table = db.GetTable(type);
-
-            List<T> records = new List<T>();
-
-            foreach (var row in table)
+            using (DataContext db = new DataContext(connectionString))
             {
-                records.Add((T)row);
-            }
+                var table = db.GetTable<T>();
+                List<T> records = new List<T>();
 
-            return records;
+                foreach (var row in table)
+                {
+                    records.Add(row);
+                }
+
+                return records;
+            }
         }
 
         /// <summary>
@@ -75,7 +84,14 @@ namespace DBTask7ClassLibrary.DAO
         /// </summary>
         /// <param name="id"> Record Id</param>
         /// <returns></returns>
-        public abstract T GetById(int id);
+        public T GetById(int id)
+        {
+            using (DataContext db = new DataContext(connectionString))
+            {
+                var instance = db.GetTable(type).Cast<T>().Single(r => r.ID == id);
+                return instance;
+            }
+        }
 
         /// <summary>
         /// Update specific record
@@ -83,37 +99,27 @@ namespace DBTask7ClassLibrary.DAO
         /// <param name="record"> Record instance</param>
         public void Update(T record)
         {
-            //Object newObj = Activator.CreateInstance(typeof(T), new object[0]);
-            //PropertyDescriptorCollection originalProps = TypeDescriptor.GetProperties(record);
+            using (DataContext db = new DataContext(connectionString))
+            {
+                var results = db.GetTable<T>().Where(r => r.ID == record.ID);
 
-            //foreach (PropertyDescriptor currentProp in originalProps)
-            //{
-            //    if(currentProp.Attributes[typeof(System.Data.Linq.Mapping.ColumnAttribute)] != null)
-            //    {
-            //        object val = currentProp.GetValue(record);
+                if (results.Any())
+                {
+                    //var fields = type.GetProperties();
+                    //var existing = results.Single();
+                    var ctx = new DataContext(connectionString);
 
-            //        currentProp.SetValue(newObj, val);
-            //    }
-            //}
+                    //for (int i = 0; i < fields.Length; i++)
+                    //{
+                    //    type.GetProperty(fields[i].Name).SetValue(results, type.GetProperty(fields[i].Name).GetValue(record));
+                    //}
+                    
+                    ctx.GetTable<T>().Attach(record);
+                    ctx.Refresh(RefreshMode.KeepCurrentValues, record);
+                    ctx.SubmitChanges();
+                }
+            }
 
-            //var original = (from row in db.GetTable(type).Cast<T>()
-            //            where row.ID == record.ID
-            //            select row).Single();
-
-            var original = db.GetTable(type).Cast<T>().FirstOrDefault(r => r.ID == record.ID);
-
-            var fields = type.GetProperties();
-
-
-            //for (int i = 0; i < fields.Length; i++)
-            //{
-            //    type.GetProperty(fields[i].Name).SetValue(original, type.GetProperty(fields[i].Name).GetValue(record));
-            //}
-
-            //original.ID = 19;
-
-            db.GetTable<T>().Attach(original, record);
-            db.SubmitChanges();
         }
     }
 }
