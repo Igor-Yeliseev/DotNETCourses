@@ -46,6 +46,12 @@ namespace DBTask7ClassLibrary
         public int SessionNumber { get; set; }
 
         /// <summary>
+        /// Examinator Id
+        /// </summary>
+        [Column(Name = "ExaminatorID")]
+        public int ExaminatorID { get; set; }
+        
+        /// <summary>
         /// Initializes a new instance of SessionExam class
         /// </summary>
         public SessionExam()

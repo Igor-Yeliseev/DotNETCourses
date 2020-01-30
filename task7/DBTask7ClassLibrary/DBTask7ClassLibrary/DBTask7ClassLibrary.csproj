@@ -44,10 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\Dao.cs" />
+    <Compile Include="DAO\DaoExaminators.cs" />
     <Compile Include="DAO\DaoFactory.cs" />
     <Compile Include="DAO\DaoGroups.cs" />
     <Compile Include="DAO\DaoSessionExams.cs" />
     <Compile Include="DAO\DaoSessionResults.cs" />
+    <Compile Include="DAO\DaoSpecialties.cs" />
     <Compile Include="DAO\DaoStudents.cs" />
     <Compile Include="DAO\DaoSubjects.cs" />
     <Compile Include="DAO\IDao.cs" />

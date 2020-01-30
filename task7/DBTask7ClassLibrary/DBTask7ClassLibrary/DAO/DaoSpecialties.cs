@@ -2,18 +2,17 @@
 namespace DBTask7ClassLibrary.DAO
 {
     /// <summary>
-    /// Students Dao
+    /// Specialties Dao
     /// </summary>
-    public class DaoStudents : Dao<Student>
+    public class DaoSpecialties : Dao<Specialty>
     {
         /// <summary>
-        /// Initializes a new instance of the DaoStudents class
+        /// Initializes a new instance of the DaoSpecialties class
         /// </summary>
         /// <param name="connectionString"> Connection string to data base</param>
-        public DaoStudents(string connectionString) : base(connectionString)
+        public DaoSpecialties(string connectionString) : base(connectionString)
         {
 
         }
-
     }
 }

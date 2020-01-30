@@ -22,8 +22,7 @@ namespace DBConsoleApp
             Subject subject1 = new Subject("Двумерная визуализация");
 
             //daoSubjects.Create(subject1);
-
-
+            
             subject1.Name = "AAAAAAAAAAAAAAAAA";
             subject1.ID = 19;
 

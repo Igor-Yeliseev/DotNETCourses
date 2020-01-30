@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBTask7ClassLibrary.ORM
+namespace DBTask7ClassLibrary
 {
     /// <summary>
     /// Represents an examinator class

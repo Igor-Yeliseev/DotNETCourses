@@ -233,8 +233,8 @@ namespace DBTask7ClassLibrary
                             if (session != 0)
                                 date = date.Add(new TimeSpan(daysBetween[session], 0, 0, 0));
 
-                            string query = "INSERT INTO sessionexams (GroupID, SubjectID, Type, SessionNumber, Date)" +
-                                        "VALUES(@GroupID, @SubjectID, @Type, @SessionNumber, @Date)";
+                            string query = "INSERT INTO sessionexams (GroupID, SubjectID, Type, SessionNumber, Date, ExaminatorID)" +
+                                        "VALUES(@GroupID, @SubjectID, @Type, @SessionNumber, @Date, @ExaminatorID)";
 
                             iter++;
                             exIDgrID.Add(iter, i + 1);
@@ -245,6 +245,8 @@ namespace DBTask7ClassLibrary
                             command.Parameters.AddWithValue("@Type", examTypes[exIndx]);
                             command.Parameters.AddWithValue("@SessionNumber", session + 1);
                             command.Parameters.AddWithValue("@Date", date);
+                            command.Parameters.AddWithValue("@ExaminatorID", rand.Next(1, 7));
+                            command.Parameters.AddWithValue("@ExaminatorID", rand.Next(1, 7));
                             command.ExecuteNonQuery();
 
                             exIndx++;

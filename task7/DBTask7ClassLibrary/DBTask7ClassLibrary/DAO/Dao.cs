@@ -16,7 +16,6 @@ namespace DBTask7ClassLibrary.DAO
         where T : class, IRecord
     {
         string connectionString;
-        protected DataContext db;
         Type type;
 
         /// <summary>
@@ -54,7 +53,6 @@ namespace DBTask7ClassLibrary.DAO
             {
                 T instance = db.GetTable(type).Cast<T>().Single(r => r.ID == record.ID);
                 db.GetTable(type).DeleteOnSubmit(instance);
-                //db.GetTable(type).DeleteOnSubmit(record);
                 db.SubmitChanges();
             }   
         }
@@ -105,14 +103,8 @@ namespace DBTask7ClassLibrary.DAO
 
                 if (results.Any())
                 {
-                    //var fields = type.GetProperties();
-                    //var existing = results.Single();
+                    // Иначе не хотело обновлять
                     var ctx = new DataContext(connectionString);
-
-                    //for (int i = 0; i < fields.Length; i++)
-                    //{
-                    //    type.GetProperty(fields[i].Name).SetValue(results, type.GetProperty(fields[i].Name).GetValue(record));
-                    //}
                     
                     ctx.GetTable<T>().Attach(record);
                     ctx.Refresh(RefreshMode.KeepCurrentValues, record);

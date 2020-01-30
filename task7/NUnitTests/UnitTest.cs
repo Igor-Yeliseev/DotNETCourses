@@ -28,7 +28,16 @@ namespace NUnitTests
             connectionString = ConfigurationManager.ConnectionStrings["task7ConnectionString"].ConnectionString;
             daoFactory = DaoFactory.GetInstance(connectionString);
         }
-        
+
+        /// <summary>
+        /// Testing DBInitializer class
+        /// </summary>
+        [Test]
+        public void TestInitDB()
+        {
+            DBInitializer.InsertData(connectionString);
+        }
+            
         /// <summary>
         /// Testing CRUD operations for Group factory
         /// </summary>
@@ -37,7 +46,7 @@ namespace NUnitTests
         {
             DaoGroups daoGroups = daoFactory.GetDaoGroups();
 
-            Group group = new Group("TPT-22");
+            Group group = new Group("TPT-22", 2);
             
             var allGroups = daoGroups.GetAllRecords();
             int count = allGroups.Count;
