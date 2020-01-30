@@ -5,8 +5,8 @@ namespace DBTask7ClassLibrary
     /// <summary>
     /// Represents a subject class
     /// </summary>
-    [Table(Name ="subjects")]
-    public class Subject
+    [Table(Name = "Subjects")]
+    public class Subject : IRecord
     {
         /// <summary>
         /// Subject ID
@@ -19,6 +19,14 @@ namespace DBTask7ClassLibrary
         /// </summary>
         [Column(Name = "Name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the Subject class
+        /// </summary>
+        public Subject()
+        {
+
+        }
 
         /// <summary>
         /// Initializes a new instance of the Subject class
@@ -63,7 +71,7 @@ namespace DBTask7ClassLibrary
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (Name.GetHashCode() * 2 - ID.GetHashCode());
+            return (Name.GetHashCode() * 2 - ID.GetHashCode() - 32);
         }
     }
 }

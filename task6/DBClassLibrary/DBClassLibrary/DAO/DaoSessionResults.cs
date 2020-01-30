@@ -2,7 +2,7 @@
 namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// SessionResults factory
+    /// SessionResults Dao
     /// </summary>
     public class DaoSessionResults : Dao<SessionResult>
     {

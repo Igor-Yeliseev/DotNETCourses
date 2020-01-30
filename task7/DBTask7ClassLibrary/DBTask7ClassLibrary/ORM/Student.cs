@@ -7,7 +7,7 @@ namespace DBTask7ClassLibrary
     /// Represents a student class
     /// </summary>
     [Table(Name = "students")]
-    public class Student
+    public class Student : IRecord
     {
         /// <summary>
         /// Student Id

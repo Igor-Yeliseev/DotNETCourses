@@ -7,7 +7,7 @@ namespace DBTask7ClassLibrary
     /// Represents a session exam class
     /// </summary>
     [Table(Name = "sessionexams")]
-    public class SessionExam
+    public class SessionExam : IRecord
     {
         /// <summary>
         /// Record Id

@@ -1,7 +1,7 @@
 ﻿namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// Students factory
+    /// Students Dao
     /// </summary>
     public class DaoStudents : Dao<Student>
     {

@@ -2,7 +2,7 @@
 namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// SessionExam factory
+    /// SessionExam Dao
     /// </summary>
     public class DaoSessionExams : Dao<SessionExam>
     {

@@ -6,7 +6,7 @@ namespace DBTask7ClassLibrary
     /// Represents a class about the result of passing one exam / credit
     /// </summary>
     [Table(Name = "sessionresults")]
-    public class SessionResult
+    public class SessionResult : IRecord
     {
         /// <summary>
         /// Record Id

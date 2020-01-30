@@ -1,5 +1,10 @@
-﻿
-namespace DBClassLibrary.DAO
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DBTask7ClassLibrary.DAO
 {
     /// <summary>
     /// Dao factory
@@ -9,7 +14,7 @@ namespace DBClassLibrary.DAO
         private static DaoFactory instance = null;
         private DaoGroups daoGroups = null;
         private DaoSubjects daoSubjects = null;
-        private DaoStudents daoStudents  = null;
+        private DaoStudents daoStudents = null;
         private DaoSessionExams daoSessionExams = null;
         private DaoSessionResults daoSessionResults = null;
 
@@ -41,7 +46,7 @@ namespace DBClassLibrary.DAO
         /// <returns></returns>
         public DaoGroups GetDaoGroups()
         {
-            if(daoGroups == null)
+            if (daoGroups == null)
             {
                 daoGroups = new DaoGroups(ConnectionString);
             }

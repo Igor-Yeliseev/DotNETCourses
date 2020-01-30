@@ -9,7 +9,7 @@ CREATE TABLE Groups
 (ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(20) NOT NULL);
 
 CREATE TABLE Subjects
-(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(20) NOT NULL);
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(45) NOT NULL);
 
 CREATE TABLE Students (
 ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
@@ -51,14 +51,16 @@ CREATE TRIGGER trigger_same_row ON Sessionresults
 INSTEAD OF INSERT
 AS
 BEGIN
-	DECLARE @amount INT;
-	DECLARE @new_student_id INT,
+	DECLARE @amount INT,
+			@new_student_id INT,
 			@new_exam_id INT;
 	SET @amount = 0;
 	SELECT @new_student_id = i.StudentID, @new_exam_id = i.ExamID FROM inserted i;
-    SET @amount = (SELECT COUNT(ExamID) FROM Sessionresults WHERE StudentID = @new_student_id
-								AND ExamID = @new_exam_id );
+    SET @amount = (SELECT COUNT(s.ExamID) FROM Sessionresults s WHERE s.StudentID = @new_student_id
+								AND s.ExamID = @new_exam_id );
 	IF (@amount > 0)
+	BEGIN
 		RAISERROR('This student already has a grade in this subject.', 16, 1);
 		ROLLBACK;
+	END
 END;

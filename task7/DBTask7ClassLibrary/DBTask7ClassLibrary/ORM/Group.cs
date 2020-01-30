@@ -6,7 +6,7 @@ namespace DBTask7ClassLibrary
     /// Represents a student group class
     /// </summary>
     [Table(Name = "groups")]
-    public class Group
+    public class Group : IRecord
     {
         /// <summary>
         /// Group Id

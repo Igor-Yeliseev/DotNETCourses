@@ -2,7 +2,7 @@
 namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// Groups factory
+    /// Groups Dao
     /// </summary>
     public class DaoGroups : Dao<Group>
     {

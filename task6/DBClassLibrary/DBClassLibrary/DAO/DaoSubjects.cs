@@ -2,7 +2,7 @@
 namespace DBClassLibrary.DAO
 {
     /// <summary>
-    /// Subjects factoty
+    /// Subjects Dao
     /// </summary>
     public class DaoSubjects : Dao<Subject>
     {

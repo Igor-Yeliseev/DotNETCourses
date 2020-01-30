@@ -43,7 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\Dao.cs" />
+    <Compile Include="DAO\DaoFactory.cs" />
+    <Compile Include="DAO\DaoGroups.cs" />
+    <Compile Include="DAO\DaoSessionExams.cs" />
+    <Compile Include="DAO\DaoSessionResults.cs" />
+    <Compile Include="DAO\DaoStudents.cs" />
+    <Compile Include="DAO\DaoSubjects.cs" />
+    <Compile Include="DAO\IDao.cs" />
+    <Compile Include="DAO\IDaoFactory.cs" />
+    <Compile Include="DBInitializer.cs" />
     <Compile Include="ORM\Group.cs" />
+    <Compile Include="ORM\IRecord.cs" />
     <Compile Include="ORM\SessionExam.cs" />
     <Compile Include="ORM\SessionResult.cs" />
     <Compile Include="ORM\Student.cs" />
