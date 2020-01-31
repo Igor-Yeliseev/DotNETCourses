@@ -6,7 +6,7 @@ USE UniversityDB;
 GO
 
 CREATE TABLE Examinators
-(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(50) NOT NULL);
+(ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, FullName VARCHAR(50) NOT NULL);
 
 CREATE TABLE Specialties
 (ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL, Name VARCHAR(45) NOT NULL);
@@ -51,19 +51,19 @@ CREATE TABLE Sessionresults (
 ID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 StudentID INT NOT NULL,
 ExamID INT NOT NULL,
-Grade TINYINT NOT NULL,
+Grade INT NOT NULL,
 CONSTRAINT fk_results_students FOREIGN KEY(StudentID)
 REFERENCES Students(ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 CONSTRAINT fk_results_exams FOREIGN KEY(ExamID)
 REFERENCES Sessionexams(ID) ON DELETE NO ACTION ON UPDATE NO ACTION);
 
 
-INSERT INTO Examinators (Name) VALUES ('Курочка Константин Сергеевич');
-INSERT INTO Examinators (Name) VALUES ('Комракова Евгения Владимировна');
-INSERT INTO Examinators (Name) VALUES ('Кравченко Ольга Алексеевна');
-INSERT INTO Examinators (Name) VALUES ('Стефановский Игорь Леонидович');
-INSERT INTO Examinators (Name) VALUES ('Авакян Елена Зиновьевна');
-INSERT INTO Examinators (Name) VALUES ('Кравченко Петр Петрович');
+INSERT INTO Examinators (FullName) VALUES ('Курочка Константин Сергеевич');
+INSERT INTO Examinators (FullName) VALUES ('Комракова Евгения Владимировна');
+INSERT INTO Examinators (FullName) VALUES ('Кравченко Ольга Алексеевна');
+INSERT INTO Examinators (FullName) VALUES ('Стефановский Игорь Леонидович');
+INSERT INTO Examinators (FullName) VALUES ('Авакян Елена Зиновьевна');
+INSERT INTO Examinators (FullName) VALUES ('Кравченко Петр Петрович');
 
 INSERT INTO Specialties (Name) VALUES ('Инженер системный программист');
 INSERT INTO Specialties (Name) VALUES ('Инженер конструктор');

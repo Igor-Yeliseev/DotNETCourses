@@ -80,8 +80,6 @@ namespace DBClassLibrary
         /// <returns></returns>
         public List<ReportSessionGroup> GetGroupResults()
         {
-            var students = daoStudent.GetAllRecords();
-            var subjects = daoSubject.GetAllRecords();
             var groups = daoGroup.GetAllRecords();
             var exams = daoExams.GetAllRecords();
             var results = daoResults.GetAllRecords();

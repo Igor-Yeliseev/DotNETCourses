@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -55,6 +58,14 @@
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\IDaoFactory.cs" />
     <Compile Include="DBInitializer.cs" />
+    <Compile Include="ExcelExport\ExcelExport.cs" />
+    <Compile Include="ExcelExport\ReportBadStudent.cs" />
+    <Compile Include="ExcelExport\Reports.cs" />
+    <Compile Include="ExcelExport\ReportSessionExaminator.cs" />
+    <Compile Include="ExcelExport\ReportSessionGroup.cs" />
+    <Compile Include="ExcelExport\ReportSessionsSubject.cs" />
+    <Compile Include="ExcelExport\ReportSessionSpecialty.cs" />
+    <Compile Include="ExcelExport\ReportSessionStudent.cs" />
     <Compile Include="ORM\Examinator.cs" />
     <Compile Include="ORM\Group.cs" />
     <Compile Include="ORM\IRecord.cs" />

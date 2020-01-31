@@ -6,12 +6,14 @@ namespace DBTask7ClassLibrary.DAO
     /// </summary>
     public class DaoFactory : IDaoFactory
     {
-        private static DaoFactory instance = null;
-        private DaoGroups daoGroups = null;
-        private DaoSubjects daoSubjects = null;
-        private DaoStudents daoStudents = null;
-        private DaoSessionExams daoSessionExams = null;
-        private DaoSessionResults daoSessionResults = null;
+        private static DaoFactory instance;
+        private DaoSpecialties daoSpecialties;
+        private DaoExaminators daoExaminators;
+        private DaoGroups daoGroups;
+        private DaoSubjects daoSubjects;
+        private DaoStudents daoStudents;
+        private DaoSessionExams daoSessionExams;
+        private DaoSessionResults daoSessionResults;
 
         static string ConnectionString = null;
 
@@ -33,6 +35,32 @@ namespace DBTask7ClassLibrary.DAO
             }
 
             return instance;
+        }
+
+        /// <summary>
+        /// Create DaoSpecialties instance
+        /// </summary>
+        /// <returns></returns>
+        public DaoSpecialties GetDaoSpecialties()
+        {
+            if (daoSpecialties == null)
+            {
+                daoSpecialties = new DaoSpecialties(ConnectionString);
+            }
+            return daoSpecialties;
+        }
+
+        /// <summary>
+        /// Create DaoExaminators instance
+        /// </summary>
+        /// <returns></returns>
+        public DaoExaminators GetDaoExaminators()
+        {
+            if (daoExaminators == null)
+            {
+                daoExaminators = new DaoExaminators(ConnectionString);
+            }
+            return daoExaminators;
         }
 
         /// <summary>
@@ -99,5 +127,6 @@ namespace DBTask7ClassLibrary.DAO
             }
             return daoSubjects;
         }
+        
     }
 }

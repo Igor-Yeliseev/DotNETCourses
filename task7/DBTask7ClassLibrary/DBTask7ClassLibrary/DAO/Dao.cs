@@ -65,10 +65,10 @@ namespace DBTask7ClassLibrary.DAO
         {
             using (DataContext db = new DataContext(connectionString))
             {
-                var table = db.GetTable<T>();
+                var table = db.GetTable(type);
                 List<T> records = new List<T>();
-
-                foreach (var row in table)
+                
+                foreach (T row in table)
                 {
                     records.Add(row);
                 }

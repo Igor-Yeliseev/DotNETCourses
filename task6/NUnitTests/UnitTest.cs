@@ -172,14 +172,14 @@ namespace NUnitTests
         /// Testing save to Excel tables
         /// </summary>
         [Test]
-        public void TestSaveExcell()
+        public void TestSaveExcel()
         {
             Reports reports = new Reports(daoFactory);
-            var studentsResults = reports.GetStudentsResults(1, "ИТИ-21");
+            //var studentsResults = reports.GetStudentsResults(1, "ИТИ-21");
             var groupResults = reports.GetGroupResults();
             var badStudents = reports.GetBadStudents();
 
-            ExcelExport.SaveToXlsx(@"D:\", "StudentsITI-21", studentsResults);
+            //ExcelExport.SaveToXlsx(@"D:\", "StudentsITI-21", studentsResults);
             ExcelExport.SaveToXlsx(@"D:\", "Groups", groupResults);
             ExcelExport.SaveToXlsx(@"D:\", "BadStudents", badStudents);
             

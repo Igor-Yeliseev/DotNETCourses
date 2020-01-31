@@ -16,17 +16,17 @@ namespace DBConsoleApp
 
             //DBInitializer.InsertData(connectionString);
 
-            DaoFactory daoFactory = DaoFactory.GetInstance(connectionString);
-            var daoSubjects = daoFactory.GetDaoSubjects();
+            //DaoFactory daoFactory = DaoFactory.GetInstance(connectionString);
+            //var daoSubjects = daoFactory.GetDaoSubjects();
 
-            Subject subject1 = new Subject("Двумерная визуализация");
+            //Subject subject1 = new Subject("Двумерная визуализация");
 
             //daoSubjects.Create(subject1);
             
-            subject1.Name = "AAAAAAAAAAAAAAAAA";
-            subject1.ID = 19;
+            //subject1.Name = "AAAAAAAAAAAAAAAAA";
+            //subject1.ID = 19;
 
-            daoSubjects.Update(subject1);
+            //daoSubjects.Update(subject1);
 
             //daoSubjects.Delete(subject1);
 

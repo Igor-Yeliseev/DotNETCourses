@@ -13,5 +13,7 @@ namespace DBTask7ClassLibrary.DAO
         DaoStudents GetDaoStudents();
         DaoSessionExams GetDaoSessExams();
         DaoSessionResults GetDaoSessResults();
+        DaoExaminators GetDaoExaminators();
+        DaoSpecialties GetDaoSpecialties();
     }
 }

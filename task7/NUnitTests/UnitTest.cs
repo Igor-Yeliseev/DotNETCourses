@@ -1,5 +1,6 @@
 ﻿using DBTask7ClassLibrary;
 using DBTask7ClassLibrary.DAO;
+using DBTask7ClassLibrary.ExcelExport;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -132,6 +133,33 @@ namespace NUnitTests
 
             daoExams.Delete(exam);
             Assert.AreEqual(count, daoExams.GetAllRecords().Count);
+        }
+
+        /// <summary>
+        /// Testing save to Excel tables
+        /// </summary>
+        [Test]
+        public void TestExcelExport()
+        {
+            Reports reports = new Reports(daoFactory);
+
+            var specsResults = reports.GetSpecialtiesResults(2);
+            ExcelExport.SaveToXlsx(@"D:\", "Specialties", specsResults);
+
+            var extrsResults = reports.GetExaminatorsResults(2);
+            ExcelExport.SaveToXlsx(@"D:\", "Examinators", extrsResults);
+
+            var sbjResults = reports.GetSubjectsResults();
+            ExcelExport.SaveToXlsx(@"D:\", "AllSessionsSubjects", sbjResults);
+
+            var studentsResults = reports.GetStudentsResults(1, "ИТИ-31");
+            var groupResults = reports.GetGroupResults();
+            var badStudents = reports.GetBadStudents();
+
+            ExcelExport.SaveToXlsx(@"D:\", "StudentsITI-21", studentsResults);
+            ExcelExport.SaveToXlsx(@"D:\", "Groups", groupResults);
+            ExcelExport.SaveToXlsx(@"D:\", "BadStudents", badStudents);
+
         }
     }
 }
