@@ -246,7 +246,6 @@ namespace DBTask7ClassLibrary
                             command.Parameters.AddWithValue("@SessionNumber", session + 1);
                             command.Parameters.AddWithValue("@Date", date);
                             command.Parameters.AddWithValue("@ExaminatorID", rand.Next(1, 7));
-                            command.Parameters.AddWithValue("@ExaminatorID", rand.Next(1, 7));
                             command.ExecuteNonQuery();
 
                             exIndx++;

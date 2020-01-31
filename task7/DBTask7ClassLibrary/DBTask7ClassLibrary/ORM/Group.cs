@@ -72,7 +72,7 @@ namespace DBTask7ClassLibrary
             if (gr == null)
                 return false;
 
-            return (ID.Equals(gr.ID) && Name.Equals(gr.Name));
+            return (ID.Equals(gr.ID) && Name.Equals(gr.Name) && SpecID.Equals(gr.SpecID));
         }
 
         /// <summary>

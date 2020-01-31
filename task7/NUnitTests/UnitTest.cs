@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NUnitTests
 {
@@ -38,7 +36,42 @@ namespace NUnitTests
         {
             DBInitializer.InsertData(connectionString);
         }
-            
+
+        /// <summary>
+        /// Testing object equality
+        /// </summary>
+        [Test]
+        public void TestEntitiesEquals()
+        {
+            Examinator examinator1 = new Examinator(1, "Петр Петрович Иванов");
+            Examinator examinator2 = new Examinator(1, "Петр Петрович Иванов");
+            Assert.AreEqual(examinator1, examinator2);
+
+            Specialty specialty1 = new Specialty(2, "Экономист");
+            Specialty specialty2 = new Specialty(2, "Экономист");
+            Assert.AreEqual(specialty1, specialty2);
+
+            Student std1 = new Student(2, "Igor", "Yeliseev", "Andreevich", 1, "male", new DateTime(1999, 5, 22));
+            Student std2 = new Student(2, "Igor", "Yeliseev", "Andreevich", 1, "male", new DateTime(1999, 5, 22));
+            Assert.AreEqual(std1, std2);
+
+            Subject sbj1 = new Subject(2, "Geography");
+            Subject sbj2 = new Subject(2, "Geography");
+            Assert.AreEqual(sbj1, sbj2);
+
+            Group group1 = new Group(1, "IS-21", 1);
+            Group group2 = new Group(1, "IS-21", 1);
+            Assert.AreEqual(group1, group2);
+
+            SessionExam exam1 = new SessionExam(21, 1, 2, "exam", 2, new DateTime(2020, 1, 12));
+            SessionExam exam2 = new SessionExam(21, 1, 2, "exam", 2, new DateTime(2020, 1, 12));
+            Assert.AreEqual(exam1, exam2);
+
+            SessionResult result1 = new SessionResult(1, 1, 3, 8);
+            SessionResult result2 = new SessionResult(1, 1, 3, 8);
+            Assert.AreEqual(result1, result2);
+        }
+
         /// <summary>
         /// Testing CRUD operations for Group factory
         /// </summary>

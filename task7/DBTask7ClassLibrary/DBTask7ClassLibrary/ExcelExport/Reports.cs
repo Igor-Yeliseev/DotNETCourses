@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DBTask7ClassLibrary.ExcelExport
 {
     /// <summary>
-    /// 
+    /// Represents a class for session reports and some other university data
     /// </summary>
     public class Reports
     {
@@ -70,7 +70,7 @@ namespace DBTask7ClassLibrary.ExcelExport
                                  Grade = result.Grade
                              };
 
-            foreach (var st in allResults)
+            foreach (var st in allResults.OrderBy(s => s.Grade).ThenBy(s => s.LastName))
             {
                 studs.Add(new ReportSessionStudent()
                 {
@@ -144,10 +144,9 @@ namespace DBTask7ClassLibrary.ExcelExport
                              where result.Grade < 4
                              select student;
 
-            var badStuds = allResults.GroupBy(g => g.ID).Select(g => g.First());
-            var groupResults = badStuds.Distinct().GroupBy(g => g.GroupID);
+            var badOnes = allResults.GroupBy(g => g.ID).Select(g => g.First());
 
-            foreach (var g in groupResults)
+            foreach (var g in badOnes.Distinct().OrderBy(s => s.FirstName).GroupBy(g => g.GroupID))
             {
                 foreach (var x in g)
                 {
@@ -260,6 +259,7 @@ namespace DBTask7ClassLibrary.ExcelExport
                              join exam in exams on result.ExamID equals exam.ID
                              join sbj in subjects on exam.SubjectID equals sbj.ID
                              select new { exam.SubjectID, sbj.Name, exam.SessionNumber, result.Grade };
+            
 
             foreach (var s in allResults.GroupBy(x => x.SubjectID))
             {

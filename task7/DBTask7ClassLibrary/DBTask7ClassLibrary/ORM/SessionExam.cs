@@ -111,7 +111,7 @@ namespace DBTask7ClassLibrary
 
             return (ID.Equals(exm.ID) && GroupID.Equals(exm.GroupID) &&
                     SubjectID.Equals(exm.SubjectID) && Type.Equals(exm.Type) &&
-                    Date.Equals(exm.Date));
+                    Date.Equals(exm.Date) && ExaminatorID.Equals(exm.ExaminatorID));
         }
 
         /// <summary>
